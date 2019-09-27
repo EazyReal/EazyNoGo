@@ -6,10 +6,15 @@
 #include <sstream>
 
 //lib of algorithms for game
-#include "board.h" //to implement : step(), isempty(), clear()
-#include "random_player.h"
+#include "../Board/board.h"
+#include "../Agent/random_player.h"
+
+#define NAME "EazyNoGo"
+#define VERSION "0.1" //0=beta
 #define BOARDSZ 9
 #define BOARDVL 81
+#define BLACK 0
+#define WHITE 1
 
 using namespace std;
 
@@ -47,135 +52,48 @@ string Int2GTP(int i)
     return s;
 }
 
-//hyper params
-int simulation_n = 50000;
+string known_commands[11] =
+{
+	"protocol_version",
+	"name",
+	"known_command",
+	"list_commands",
+	"quit",
+	"boardsize",
+	"clear_board",
+	"komi",
+	"play",
+	"genmove",
+	"reg_genmove"
+}
 
 int main(int argc, char** argv)
 {
   //some setting, initialization
-  if (argc == 2)
-	{
-		istringstream (string(argv[1])) >> simulation_n;
-		cerr << "set simulation step to: " << simulation_n << endl;
-	}
-  board b; b.clear();
-
-  string cmd, color, pos; //cmd, color, position
-  //bool last_color; //0 = black, 1 = white
+  board b; b.reset();
+	//loop for gtp input and output
+  string cmd, color, pos, tmp; //cmd, color, position
+	//color black is represented by bool 0
   while(cin >> cmd)
   {
-    if(cmd == "play" || cmd == "p" )
-    {
-      cin >> color >> pos;
-      bool play_color = (color[0]=='b' || color[0]=='B') ? 0 : 1;
-      b.step(GTP2Int(pos),play_color);
-      cout << "=" << endl << endl;
-    }
-    else if(cmd[0] == 'e')
-    {
-      cout << b.isempty() << endl << endl;
-    }
-    else if(cmd[0] == 'c')
-    {
-      b.clear();
-      cout << "=" << endl << endl;
-    }
-    else if(cmd[0] == 'g' || cmd == "reg_genmove")
-    {
-      cin >> color; //color to move, Generate the supposedly best move for either color
-      bool color_to_play = !b.just_play_color();
-			bool flag = false;
-      for(int i = 0; i < BOARDVL; i++) if(b.check(i,color_to_play))
-      { flag = true; break;}
-      if(!flag)
-      {
-        cout << "=resign" << endl << endl; //resign ? wtf, what if some special case
-        continue;
-      }
-
-//implement MCTS+RAVE
-      if(s != "reg_genmove")
-    		b.add(best_move, !b.just_play_color());
-  		if(win_rate > 0.2)
-  		{
-    		cout<<"="<<Int2GTP(best_move)<<endl<<endl;
-  		}else
-  		{
-    		cout<<"=resign"<<endl<<endl;
-  		}
+		if(cmd == "protocol_version") { cout << "=2" << endl << endl;}
+		else if(cmd == "name") {cout << "=" << NAME << endl << endl;}
+		else if(cmd == "version") {cout << "=" << VERSION << endl << endl;}
+		else if(cmd == "known_command")
+		{
+			for(int i = 0;i < 11; i++) if(cmd == known_commands[i]) {cout << "=" << true << endl << endl; continue;}
+			cout << "=" << false << endl << endl; continue;
+		}
+		else if(cmd == "list_commands")
+		{
+			cout << "=";
+			for(int i = 0;i < 11; i++) {cout << known_commands[i] << endl;}
+			cout << endl << endl;
+		}
+		else if(cmd == "boardsize") {cin >> tmp; cout << "=" << endl << endl }
 
 
-		}
-		else if (s == "policy")
-		{
-  		for (int i = 0; i < 9; i++)
-  		{
-    		for (int j = 0; j < 9; j++)
-    		{
-      		cout << policy[i * 9 + j] << ' ';
-    		}
-    		cout << endl;
-  		}
-
-		}
-		else if (s == "value")
-		{
-  		cout << value << endl;
-		}
-		else if (s == "protocol_version")
-		{
-  		cout<<"=2\n\n";
-		}
-		else if (s == "rev")
-		{
-  		int bsize, wsize, tsize;
-  		int bone[BOARDSSIZE], wone[BOARDSSIZE], two[BOARDSSIZE];
-  		float x;
-  		cin >> x;
-  		float sum = 0;
-  		for (int i = 0; i < x; i++)
-  		{
-    		board tmpb = b;
-    		tmpb.getv(bone, wone, two, bsize, wsize, tsize);
-    		sum += tmpb.simulate(!tmpb.just_play_color(), bone, wone, two, bsize, wsize, tsize);
-  		}
-  		cout << sum / x << endl;
-		}
-		else if(s== "name")
-		{
-  		cout<<"=haha"<< UCB_WEIGHT * 100<<"_rn"<<ravenum<<"_bn"<<basenum << "\n\n";
-		}
-		else if(s== "time")
-		{
-  		cin>>t;
-  		t*=1000;
-  		t++;
-  		cout<<"="<<endl<<endl;
-		}
-		else if(s == "boardsize")
-		{
-  		cin>>s;
-  		cout<<"="<<endl<<endl;
-		}
-		else if(s == "komi")
-		{
-  		cin>>s;
-  		cout<<"="<<endl<<endl;
-		}
-		else if(s == "time_left")
-		{
-  		cin>>s>>s>>s;
-  		cout<<"="<<endl<<endl;
-		}
-		else if(s == "showboard" || s == "sb")
-		{
-  		b.showboard();
-  		cout<<endl;
-		}
-		else
-		{
-  		cout<<"="<<endl<<endl;
-		}
-  }
-  //loop for gtp input and output
+		else{ cout << "=" << endl << endl;}
+	}
+  //end loop for gtp input and output
 }
