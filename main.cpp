@@ -9,6 +9,7 @@
 #include "board.h" //to implement : step(), isempty(), clear()
 #include "random_player.h"
 #define BOARDSZ 9
+#define BOARDVL 81
 
 using namespace std;
 
@@ -81,135 +82,100 @@ int main(int argc, char** argv)
     }
     else if(cmd[0] == 'g' || cmd == "reg_genmove")
     {
-      bool j,f=false;
-      int st,e;
-      cin>>c;
-      j=!b.just_play_color();
-      for(i=0;i<BOARDSZ;i++)
+      cin >> color; //color to move, Generate the supposedly best move for either color
+      bool color_to_play = !b.just_play_color();
+			bool flag = false;
+      for(int i = 0; i < BOARDVL; i++) if(b.check(i,color_to_play))
+      { flag = true; break;}
+      if(!flag)
       {
-        if(b.check(i,j))
-        {
-          f=true;
-          break;
-        }
-      }
-      if(!f)
-      {
-        cout<<"=resign"<<endl<<endl;
+        cout << "=resign" << endl << endl; //resign ? wtf, what if some special case
         continue;
       }
-      tree.reset(b);
-      e = st = clock();
-      int simulationFinishedCnt = 0;
-      //while(e-st<t)
-      while(simulationFinishedCnt < simulationCnt)
-      {
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        tree.run_a_cycle();
-        simulationFinishedCnt +=10;
-        e=clock();
-        if(simulationFinishedCnt %10000==0)
-        {
-          tree.show_path();
-        }
-      }
-      k= tree.root -> getbestmove();
-      ucbnode* tmp = tree.root -> childptr;
-      int best_move = (tmp+k)->place;
-      policy = tree.root->getPolicy();
-      tree.root ->show_child();
-      value = tree.root ->show_inf(k);
-      cerr<<"simulation time : "<< (double)(e-st) / 1000.0<<endl;
-      cerr<<"average deep : "<<(double)tree.total / (double)i<<endl;
-      cerr<<"total node : "<< tree.totalnode<<endl;
-      cerr<<"average speed : "<< (simulationFinishedCnt*1000) / (e-st) <<endl;
-      tree.show_path();
+
+//implement MCTS+RAVE
       if(s != "reg_genmove")
-    b.add(best_move, !b.just_play_color());
-  if(value > 0.2)
-  {
-    cout<<"="<<inttoGTPstring(best_move)<<endl<<endl;
-  }else
-  {
-    cout<<"=resign"<<endl<<endl;
-  }
+    		b.add(best_move, !b.just_play_color());
+  		if(win_rate > 0.2)
+  		{
+    		cout<<"="<<Int2GTP(best_move)<<endl<<endl;
+  		}else
+  		{
+    		cout<<"=resign"<<endl<<endl;
+  		}
 
-  tree.clear();
 
-}
-else if (s == "policy")
-{
-  for (int i = 0; i < 9; i++)
-  {
-    for (int j = 0; j < 9; j++)
-    {
-      cout << policy[i * 9 + j] << ' ';
-    }
-    cout << endl;
-  }
+		}
+		else if (s == "policy")
+		{
+  		for (int i = 0; i < 9; i++)
+  		{
+    		for (int j = 0; j < 9; j++)
+    		{
+      		cout << policy[i * 9 + j] << ' ';
+    		}
+    		cout << endl;
+  		}
 
-}
-else if (s == "value")
-{
-  cout << value << endl;
-}
-else if (s == "protocol_version")
-{
-  cout<<"=2\n\n";
-}
-else if (s == "rev")
-{
-  int bsize, wsize, tsize;
-  int bone[BOARDSSIZE], wone[BOARDSSIZE], two[BOARDSSIZE];
-  float x;
-  cin >> x;
-  float sum = 0;
-  for (int i = 0; i < x; i++)
-  {
-    board tmpb = b;
-    tmpb.getv(bone, wone, two, bsize, wsize, tsize);
-    sum += tmpb.simulate(!tmpb.just_play_color(), bone, wone, two, bsize, wsize, tsize);
-  }
-  cout << sum / x << endl;
-}
-else if(s== "name")
-{
-  cout<<"=haha"<< UCB_WEIGHT * 100<<"_rn"<<ravenum<<"_bn"<<basenum << "\n\n";
-}else if(s== "time")
-{
-  cin>>t;
-  t*=1000;
-  t++;
-  cout<<"="<<endl<<endl;
-}else if(s == "boardsize")
-{
-  cin>>s;
-  cout<<"="<<endl<<endl;
-}else if(s == "komi")
-{
-  cin>>s;
-  cout<<"="<<endl<<endl;
-}else if(s == "time_left")
-{
-  cin>>s>>s>>s;
-  cout<<"="<<endl<<endl;
-}else if(s == "showboard" || s == "sb")
-{
-  b.showboard();
-  cout<<endl;
-}
-else
-{
-  cout<<"="<<endl<<endl;
-}
+		}
+		else if (s == "value")
+		{
+  		cout << value << endl;
+		}
+		else if (s == "protocol_version")
+		{
+  		cout<<"=2\n\n";
+		}
+		else if (s == "rev")
+		{
+  		int bsize, wsize, tsize;
+  		int bone[BOARDSSIZE], wone[BOARDSSIZE], two[BOARDSSIZE];
+  		float x;
+  		cin >> x;
+  		float sum = 0;
+  		for (int i = 0; i < x; i++)
+  		{
+    		board tmpb = b;
+    		tmpb.getv(bone, wone, two, bsize, wsize, tsize);
+    		sum += tmpb.simulate(!tmpb.just_play_color(), bone, wone, two, bsize, wsize, tsize);
+  		}
+  		cout << sum / x << endl;
+		}
+		else if(s== "name")
+		{
+  		cout<<"=haha"<< UCB_WEIGHT * 100<<"_rn"<<ravenum<<"_bn"<<basenum << "\n\n";
+		}
+		else if(s== "time")
+		{
+  		cin>>t;
+  		t*=1000;
+  		t++;
+  		cout<<"="<<endl<<endl;
+		}
+		else if(s == "boardsize")
+		{
+  		cin>>s;
+  		cout<<"="<<endl<<endl;
+		}
+		else if(s == "komi")
+		{
+  		cin>>s;
+  		cout<<"="<<endl<<endl;
+		}
+		else if(s == "time_left")
+		{
+  		cin>>s>>s>>s;
+  		cout<<"="<<endl<<endl;
+		}
+		else if(s == "showboard" || s == "sb")
+		{
+  		b.showboard();
+  		cout<<endl;
+		}
+		else
+		{
+  		cout<<"="<<endl<<endl;
+		}
   }
   //loop for gtp input and output
 }

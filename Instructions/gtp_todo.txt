@@ -1,0 +1,34 @@
+gtp to implement
+
+hahanogo implemented:
+play/p
+empty/e
+clear_board/c
+genmove/reg_genmove (genmove(+play))
+policy
+value (means winrate)
+protocol_version
+rev
+name
+time
+boardsize
+komi
+time_left
+showboard(sb)
+NULL
+
+core:
+protocol_version  return version of gtp, return 2(=2\n\n)
+name              return name of engine
+version           return version of engine
+known_command     return if a string is accepted by this engine
+list_commands     return all known_commands separated by \n
+quit              msg means server close
+boardsize         change board size, but no reset in protocol version 2
+clear_board       literally
+komi              receive a new komi "float"
+play              play a stone @ pos, will return illegal cases
+genmove           genmove black -> black player return vertex/resign/pass and play
+
+loadsgf           loadsgf
+reg_genmove       differs from genmove by not playing
