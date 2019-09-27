@@ -15,6 +15,7 @@
 #define BOARDVL 81
 #define BLACK 0
 #define WHITE 1
+#define RESIGN 0.2
 
 using namespace std;
 
@@ -70,13 +71,32 @@ string known_commands[11] =
 int main(int argc, char** argv)
 {
   //some setting, initialization
-  board b; b.reset();
+  Board env; env.reset();
+	RandomAgent agent;
 	//loop for gtp input and output
   string cmd, color, pos, tmp; //cmd, color, position
 	//color black is represented by bool 0
   while(cin >> cmd)
   {
-		if(cmd == "protocol_version") { cout << "=2" << endl << endl;}
+		if(cmd[0] == "play")
+		{
+			cin >> color >> pos;
+			bool c;
+			if(color[0] == 'b' || color[0] == 'B') c = BLACK; else c = WHITE;
+			env.step(GTP2Int(pos), c);
+			cout << '=' << endl << endl;
+		}
+		else if(cmd[0] == 'g' || cmd == "reg_genmove" )
+		{
+			cin >> color;
+			//the agent make choices
+			int a_max = agent.best_action();
+			int wr = agent.calc_winrate();
+			if(cmd[0] == 'g') env.step(a_max);
+			if(wr < RESIGN) cout << "=resign" << endl << endl;
+			else cout << '=' << Int2GTP(a_max) << endl << endl;
+		}
+		else if(cmd == "protocol_version") { cout << "=2" << endl << endl;}
 		else if(cmd == "name") {cout << "=" << NAME << endl << endl;}
 		else if(cmd == "version") {cout << "=" << VERSION << endl << endl;}
 		else if(cmd == "known_command")
@@ -90,9 +110,9 @@ int main(int argc, char** argv)
 			for(int i = 0;i < 11; i++) {cout << known_commands[i] << endl;}
 			cout << endl << endl;
 		}
-		else if(cmd == "boardsize") {cin >> tmp; cout << "=" << endl << endl }
-
-
+		else if(cmd == "boardsize") {cin >> tmp; cout << "=" << endl << endl; }
+		else if(cmd == "clear_board") {env.reset(); cout << "=" << endl << endl;}
+		else if(cmd == "komi") {cin >> tmp; cout << "=" << endl << endl;}
 		else{ cout << "=" << endl << endl;}
 	}
   //end loop for gtp input and output
