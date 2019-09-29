@@ -1,0 +1,17 @@
+# Black: EazyNoGo
+# BlackCommand: EazyNoGo/eazynogo
+# BlackLabel: EazyNoGo
+# BlackVersion: 0.1
+# Date: September 29, 2019 at 6:10:47 PM CST
+# Host: linyantongs-MBP
+# Komi: 6.5
+# Referee: -
+# Size: 9
+# White: haha25_rn20_bn0
+# WhiteCommand: HaHaNoGo/hahanogo
+# WhiteLabel: haha25_rn20_bn0
+# WhiteVersion: 
+# Xml: 0
+#
+#GAME	RES_B	RES_W	RES_R	ALT	DUP	LEN	TIME_B	TIME_W	CPU_B	CPU_W	ERR	ERR_MSG
+0	?		?	0	-	74	0	12.9	0	0	1	The Go program terminated unexpectedly.
