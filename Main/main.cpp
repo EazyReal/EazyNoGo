@@ -7,7 +7,7 @@
 
 //lib of algorithms for game
 #include "../Board/board.h"
-#include "../Agent/random_player.h"
+#include "../Agent/random_agent.h"
 
 #define NAME "EazyNoGo"
 #define VERSION "0.1" //0=beta
@@ -71,7 +71,7 @@ string known_commands[11] =
 int main(int argc, char** argv)
 {
   //some setting, initialization
-  Board env; env.reset();
+  board env; env.clear();
 	RandomAgent agent;
 	//loop for gtp input and output
   string cmd, color, pos, tmp; //cmd, color, position
@@ -83,16 +83,17 @@ int main(int argc, char** argv)
 			cin >> color >> pos;
 			bool c;
 			if(color[0] == 'b' || color[0] == 'B') c = BLACK; else c = WHITE;
-			env.step(GTP2Int(pos), c);
+			env.add(GTP2Int(pos), c);
 			cout << '=' << endl << endl;
 		}
 		else if(cmd[0] == 'g' || cmd == "reg_genmove" )
 		{
 			cin >> color;
+			if(color[0] == 'b' || color[0] == 'B') c = BLACK; else c = WHITE;
 			//the agent make choices
-			int a_max = agent.best_action();
-			int wr = agent.calc_winrate();
-			if(cmd[0] == 'g') env.step(a_max);
+			int a_max = agent.best_action(env, c);
+			int wr = agent.calc_winrate(env, c);
+			if(cmd[0] == 'g') env.add(a_max, c);
 			if(wr < RESIGN) cout << "=resign" << endl << endl;
 			else cout << '=' << Int2GTP(a_max) << endl << endl;
 		}
@@ -111,7 +112,7 @@ int main(int argc, char** argv)
 			cout << endl << endl;
 		}
 		else if(cmd == "boardsize") {cin >> tmp; cout << "=" << endl << endl; }
-		else if(cmd == "clear_board") {env.reset(); cout << "=" << endl << endl;}
+		else if(cmd == "clear_board") {env.clear(); cout << "=" << endl << endl;}
 		else if(cmd == "komi") {cin >> tmp; cout << "=" << endl << endl;}
 		else{ cout << "=" << endl << endl;}
 	}
