@@ -91,11 +91,13 @@ int main(int argc, char** argv)
 			cin >> color;
 			bool c;
 			if(color[0] == 'b' || color[0] == 'B') c = BLACK; else c = WHITE;
+
 			//the agent make choices
 			int a_max = agent.best_action(env, c);
-			double wr = agent.calc_winrate(env, c);
+			if(a_max == -1) {cout << "=pass" << endl << endl; continue;}
 			if(cmd[0] == 'g') env.add(a_max, c);
-			if(wr < RESIGN) cout << "=resign" << endl << endl;
+			
+			if(agent.calc_winrate(env, c) < RESIGN) cout << "=resign" << endl << endl;
 			else cout << '=' << Int2GTP(a_max) << endl << endl;
 		}
 		else if(cmd == "protocol_version") { cout << "=2" << endl << endl;}
@@ -103,8 +105,11 @@ int main(int argc, char** argv)
 		else if(cmd == "version") {cout << "=" << VERSION << endl << endl;}
 		else if(cmd == "known_command")
 		{
-			for(int i = 0;i < 11; i++) if(cmd == known_commands[i]) {cout << "=" << true << endl << endl; continue;}
-			cout << "=" << false << endl << endl; continue;
+			string tmp;
+			cin >> tmp;
+			bool flag = 0;
+			for(int i = 0;i < 11; i++) if(tmp == known_commands[i]) {cout << "=" << true << endl << endl; flag = 1; break;}
+			if(!flag) {cout << "=" << false << endl << endl;}
 		}
 		else if(cmd == "list_commands")
 		{
@@ -115,6 +120,11 @@ int main(int argc, char** argv)
 		else if(cmd == "boardsize") {cin >> tmp; cout << "=" << endl << endl; }
 		else if(cmd == "clear_board") {env.clear(); cout << "=" << endl << endl;}
 		else if(cmd == "komi") {cin >> tmp; cout << "=" << endl << endl;}
+		else if(cmd == "showboard" || cmd == "sb") //from hahanogo, debug usage
+		{
+			env.showboard();
+			cout<<endl;
+		}
 		else{ cout << "=" << endl << endl;}
 	}
   //end loop for gtp input and output

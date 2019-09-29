@@ -16,8 +16,9 @@ int RandomAgent::best_action(board b, bool color) //gen random playable move
   {
     if(b.check(i, color)) available_pos[cnt++] = i;
   }
-  std::uniform_int_distribution<int> dis(0, cnt-1);
+  if(cnt == 0) return -1; //no available pos 
 
+  std::uniform_int_distribution<int> dis(0, cnt-1);
   return available_pos[dis(gen)];
 }
 
