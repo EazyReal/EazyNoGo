@@ -2,8 +2,8 @@
 # BlackCommand: EazyNoGo/eazynogo
 # BlackLabel: EazyNoGo
 # BlackVersion: 0.1
-# Date: September 29, 2019 at 7:18:26 PM CST
-# Host: linyantongs-MBP
+# Date: September 30, 2019 at 1:18:11 PM CST
+# Host: linyantongs-MacBook-Pro.local
 # Komi: 6.5
 # Referee: -
 # Size: 9
@@ -14,4 +14,4 @@
 # Xml: 0
 #
 #GAME	RES_B	RES_W	RES_R	ALT	DUP	LEN	TIME_B	TIME_W	CPU_B	CPU_W	ERR	ERR_MSG
-0	B+R	B+R	B+R	0	-	75	0	12.6	0	0	0	
+0	W+R	W+R	W+R	0	-	74	0	12.4	0	0	0	

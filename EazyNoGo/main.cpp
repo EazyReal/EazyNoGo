@@ -94,9 +94,9 @@ int main(int argc, char** argv)
 
 			//the agent make choices
 			int a_max = agent.best_action(env, c);
-			if(a_max == -1) {cout << "=pass" << endl << endl; continue;}
+			if(a_max == -1) {cout << "=resign" << endl << endl; continue;}
 			if(cmd[0] == 'g') env.add(a_max, c);
-			
+
 			if(agent.calc_winrate(env, c) < RESIGN) cout << "=resign" << endl << endl;
 			else cout << '=' << Int2GTP(a_max) << endl << endl;
 		}
