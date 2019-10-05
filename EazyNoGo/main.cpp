@@ -4,6 +4,9 @@
 #include <cstring>
 #include <string>
 #include <sstream>
+#include <ctime> //clock = long, second =  clock()/CLOCKS_PER_SEC
+
+#include <cassert>
 
 //lib of algorithms for game
 #include "board.h"
@@ -16,6 +19,7 @@
 #define BLACK 0
 #define WHITE 1
 #define RESIGN 0.2
+//typedef int Action //for clarity
 
 using namespace std;
 
@@ -68,10 +72,15 @@ string known_commands[11] =
 	"reg_genmove"
 };
 
+MCTS mcts;
+
 int main(int argc, char** argv)
 {
   //some setting, initialization
   board env; env.clear();
+	std::random_device rd;
+  std::default_random_engine gen = std::default_random_engine(rd());
+  //std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
 	RandomAgent agent;
 	//loop for gtp input and output
   string cmd, color, pos, tmp; //cmd, color, position
@@ -93,7 +102,7 @@ int main(int argc, char** argv)
 			if(color[0] == 'b' || color[0] == 'B') c = BLACK; else c = WHITE;
 
 			//the agent make choices
-			int a_max = agent.best_action(env, c);
+			Action a_max = agent.best_action(env, c);
 			if(a_max == -1) {cout << "=resign" << endl << endl; continue;}
 			if(cmd[0] == 'g') env.add(a_max, c);
 
