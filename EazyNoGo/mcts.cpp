@@ -7,8 +7,8 @@ Node*  MCTS::init_with_board(board b)
 {
   root = new Node;
   root_board = b; //copy a board
-  root.initNode(root_board.just_play_color(), BOARDSZ, 0, 0);
-  //use BOARDSZ, 0, 0 for last action doesnt matter
+  root.initNode(NULL, root_board.just_play_color(), BOARDSZ, 0, 0);
+  //use NULL, BOARDSZ, 0, 0 for last action doesnt matter
   root-> expansion(b,rave_num,rave_wnum);
   total = 0;
 }
@@ -48,7 +48,7 @@ bool MCTS::roll_out() //the one in the board
     rave_path[0].push_back(simu_board.bpath[i]);
   for(int i = 0; i < simu_board.wpsize; i++)
     rave_path[0].push_back(simu_board.wpath[i]);
-  return (res == 1);
+  return (res == -1);
 }
 
 void MCTS::backpropogation(bool res)
@@ -76,7 +76,7 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
   time_t start_t, cur_t;
   start_t = clock();
 
-  while(start_t + time_limit < cur_t)
+  while(start_t + time_limit < cur_t)//while time available
   {
     for(int block_i = 0; block_i < BLOCKSIZE; block_i++) //do blocksz cycles
     {

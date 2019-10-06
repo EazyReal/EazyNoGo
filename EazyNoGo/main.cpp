@@ -81,7 +81,8 @@ int main(int argc, char** argv)
 	std::random_device rd;
   std::default_random_engine gen = std::default_random_engine(rd());
   //std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-	RandomAgent agent;
+	//RandomAgent agent;
+	MCTS agent;
 	//loop for gtp input and output
   string cmd, color, pos, tmp; //cmd, color, position
 	//color black is represented by bool 0

@@ -16,9 +16,15 @@
 #define BLACK 0
 #define WHITE 1
 
+#define USERAVE 0
+
 #define BOARDSZ 9
 #define BOARDVL 81
 #define BASENUM 10
+
+#define RAVE 0
+#define RAVEB 0.0001
+#define UCB_WEIGHT 0.25
 
 typedef int Action; //for clarity
 
@@ -37,9 +43,12 @@ public:
   int idx[BOARDVL+1]; //idx: board pos => cptr idx
   vector<Node*> cptr; //children of the node
 
-  void initNode(Action i,bool c,double rcnt,double rnum);
+  void initNode(Node* parent, Action i, bool c, double rcnt, double rnum);
   void expand(board& b, double rave_cnt[2][BOARDVL], double rave_num[2][BOARDVL]);
-  void update();
+  void update(bool result);
+  void rave_update(bool result);
+  Node* best_child(bool rave = USERAVE);
+  inline double getQ();
 
 private:
 };
