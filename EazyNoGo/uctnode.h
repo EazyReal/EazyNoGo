@@ -1,5 +1,5 @@
-#ifndef MCTSH
-#define MCTSH
+#ifndef UCTH
+#define UCTH
 #include"bitboard.h"
 #include"boardcn.h"
 #include"board.h"
@@ -16,13 +16,11 @@
 #define BLACK 0
 #define WHITE 1
 
-#define USERAVE 0
-
 #define BOARDSZ 9
 #define BOARDVL 81
 #define BASENUM 10
 
-#define RAVE 0
+#define USERAVEQ 0
 #define RAVEB 0.0001
 #define UCB_WEIGHT 0.25
 
@@ -30,9 +28,14 @@ typedef int Action; //for clarity
 
 using namespace std;
 
+std::random_device rd;
+std::default_random_engine gen;
+
 class Node
 {
 public:
+  Node();
+  ~Node();
   Node* parent; //its parent
   bool color; //last color
   Action pos; // last polay pos
@@ -44,14 +47,14 @@ public:
   vector<Node*> cptr; //children of the node
 
   void initNode(Node* parent, Action i, bool c, double rcnt, double rnum);
-  void expand(board& b, double rave_cnt[2][BOARDVL], double rave_num[2][BOARDVL]);
+  int expand(board& b, double rave_cnt[2][BOARDVL], double rave_num[2][BOARDVL]);
   void update(bool result);
   void rave_update(bool result);
-  Node* best_child(bool rave = USERAVE);
+  Node* best_child();
   inline double getQ();
 
 private:
 };
 
 
-#endif //MCTSH
+#endif //UCTH

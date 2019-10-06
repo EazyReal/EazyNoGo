@@ -21,7 +21,7 @@
 #define BOARDSZ 9
 #define BOARDVL 81
 #define DEFAUT_TIME_PER_STEP (time_t(0.5*CLOCKS_PER_SEC))
-#define BLOCKSIZE
+#define BLOCKSIZE 50
 
 typedef int Action;//for clarity
 
@@ -37,8 +37,8 @@ public:
   void clear(); //clear MCTS by delete root
 
   Node* select(Node* r);
-  void roll_out();
-  void backpropogation();
+  bool roll_out();
+  void backpropogation(bool res);
 
   int total;
   Node* root; //the current position to play
@@ -47,8 +47,8 @@ public:
   vector<Node*> path; //record path of each select
   vector<Action> rave_path[2]; //for amaf rave value update
   //heuristic rave value, not used in ver1
-  double rave_cnt[2][BOARDVL+1]; //rave count, amaf, action taken = counted
-  double rave_num[2][BOARDVL+1]; //rave value, amaf, dont consider (S,A) only A
+  double rave_cnt[2][BOARDVL]; //rave count, amaf, action taken = counted
+  double rave_num[2][BOARDVL]; //rave value, amaf, dont consider (S,A) only A
   //note that the way to add rava value is
   //run over selected path, update selected move's child's rave val once
   //if the child have a action in select + simulation method(should be after?)

@@ -4,17 +4,17 @@ Node::Node(){};
 
 Node::~Node()
 {
-  if(cptr != NULL)
+  for(int i = 0; i < cptr.size(); i++)
   {
-    delete [] cptr;
-    cptr = NULL;
+    delete cptr[i];
   }
+  cptr.clear();
 };
 
 inline double Node::getQ()
 {
   double Q, beta;
-  if(RAVE)
+  if(USERAVEQ)
   {
     beta = rcnt/(cnt+rcnt+4*cnt*RAVEB*rcnt*RAVEB);
     Q = (1-beta)*(num/cnt)+beta*(rnum/rcnt);
@@ -29,7 +29,7 @@ inline double Node::getQ()
 Node* Node::best_child()
 {
   //should not use this condition:)
-  if(cptr.isempty()) return NULL;
+  if(cptr.empty()) return NULL;
 
   vector<Node*> maxC;
   double maxQ = cptr[0]->getQ();
@@ -38,11 +38,11 @@ Node* Node::best_child()
 
   for(int i = 1;i < cptr.size(); i++)
   {
-    double curQ = cpt[i]->getQ();
+    double curQ = cptr[i]->getQ();
     double delta = curQ - maxQ;
     if(delta > eps)
     {
-      maxQ = curQ
+      maxQ = curQ;
       maxC.clear();
       maxC.push_back(cptr[i]);
     }else if(delta > -eps){
@@ -69,12 +69,12 @@ void Node::rave_update(bool result)
 int Node::expand(board& b, double rave_cnt[2][BOARDVL], double rave_num[2][BOARDVL])
 {
   //cptr.clear();
-  bool c = !b.just_play_color; //get player color
-  for(Action p = 0; p < BOARDVL; p++)if(check(p, c))
+  bool c = !b.just_play_color(); //get player color
+  for(Action p = 0; p < BOARDVL; p++)if(b.check(p, c))
   {
-    idx[p] = ctpr.size();
+    idx[p] = cptr.size();
     Node *ptr =  new Node;
-    ptr.initNode(this, p, c, rave_cnt[c][p], rave_num[c][p]);//use rave heuristic
+    ptr->initNode(this, p, c, rave_cnt[c][p], rave_num[c][p]);//use rave heuristic
     cptr.push_back(ptr);
   }
   return cptr.size(); // may use this
@@ -85,7 +85,7 @@ void Node::initNode(Node* parent,Action i,bool c,double rcnt,double rnum)
   parent = parent;
   memset(idx, -1, sizeof(idx));
   color = c;
-  action = i;
+  pos = i;
   num = BASENUM/2.0;
   cnt = BASENUM; //stablize the beginnnig of training
   rnum = rnum;

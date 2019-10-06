@@ -11,6 +11,7 @@
 //lib of algorithms for game
 #include "board.h"
 #include "random_agent.h"
+#include "mcts.h"
 
 #define NAME "EazyNoGo"
 #define VERSION "0.1" //0=beta
@@ -72,17 +73,16 @@ string known_commands[11] =
 	"reg_genmove"
 };
 
-MCTS mcts;
-
 int main(int argc, char** argv)
 {
   //some setting, initialization
-  board env; env.clear();
-	std::random_device rd;
-  std::default_random_engine gen = std::default_random_engine(rd());
+  //board env; env.clear();
+  //gen = std::default_random_engine(rd());
   //std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
 	//RandomAgent agent;
 	MCTS agent;
+	board env;
+	env.clear();
 	//loop for gtp input and output
   string cmd, color, pos, tmp; //cmd, color, position
 	//color black is represented by bool 0

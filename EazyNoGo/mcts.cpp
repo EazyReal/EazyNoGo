@@ -3,13 +3,13 @@
 //btw beause of base num stablize the initial Q(s,a)m, thus unexplored child will always get accesed before win 1 child
 
 
-Node*  MCTS::init_with_board(board b)
+void MCTS::init_with_board(board b)
 {
   root = new Node;
   root_board = b; //copy a board
-  root.initNode(NULL, root_board.just_play_color(), BOARDSZ, 0, 0);
+  root->initNode(NULL, root_board.just_play_color(), BOARDSZ, 0, 0);
   //use NULL, BOARDSZ, 0, 0 for last action doesnt matter
-  root-> expansion(b,rave_num,rave_wnum);
+  root->expand(b,rave_num,rave_cnt);
   total = 0;
 }
 
@@ -71,7 +71,7 @@ void MCTS::backpropogation(bool res)
 
 int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random playable move
 {
-  mcts.init_with_board(init_b);
+  init_with_board(init_b);
 
   time_t start_t, cur_t;
   start_t = clock();
@@ -82,10 +82,10 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
     {
       reset();
       //selection
-      Node* selected_root= select(root);
+      Node* selected_root = select(root);
       //expansion
       bool res;
-      if(selected_root->expand(simu_board) == 0)
+      if(selected_root->expand(simu_board, rave_cnt, rave_num) == 0)
       {
         res = simu_board.just_play_color();
       }
@@ -99,10 +99,12 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
     cur_t = clock();
   }
 
-  assert(cur_t < start_t + time_limit + time_limit); //for no inf loop;
-  mcts.clear();
+  Action maxA = root->best_child()->pos;
 
-  return ;
+  assert(cur_t < start_t + time_limit + time_limit); //for no inf loop;
+  clear();
+
+  return maxA;
 }
 
 double MCTS::calc_winrate(board b, bool color)
