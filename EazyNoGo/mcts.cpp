@@ -89,20 +89,11 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
     for(int block_i = 0; block_i < BLOCKSIZE; block_i++) //do blocksz cycles
     {
       reset();
-#ifdef DEBUG
-      cout << "reset done\n";
-#endif
       //selection
       Node* selected_root = select(root);
-#ifdef DEBUG
-      cerr << "select done\n";
-#endif
       //expansion
       bool res;
       int nc = selected_root->expand(simu_board, rave_cnt, rave_num);
-#ifdef DEBUG
-      cerr << "expand done\n";
-#endif
       if(nc == 0)
       {
         res = simu_board.just_play_color();
@@ -111,23 +102,16 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
         //simulation
         res = roll_out();
       }
-#ifdef DEBUG
-      cerr << "simulation done\n";
-#endif
       //backpropogation
       backpropogation(res);
-#ifdef DEBUG
-      cerr << "backpro done\n";
-#endif
     }
     cur_t = clock();
   }
-
-  Action maxA = root->best_child()->pos;
-
+  //return result, forget to judge NULL at first
+  Node *best_node = root->best_child();
+  Action maxA = (best_node == NULL) ? -1 : best_node->pos;
   assert(cur_t < start_t + time_limit + time_limit); //for no inf loop;
   clear();
-
   return maxA;
 }
 
