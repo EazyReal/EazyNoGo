@@ -28,8 +28,8 @@ typedef int Action; //for clarity
 
 using namespace std;
 
-std::random_device rd;
-std::default_random_engine gen;
+//std::random_device rd;
+//std::default_random_engine gen;
 
 class Node
 {

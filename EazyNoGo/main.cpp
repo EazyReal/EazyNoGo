@@ -83,6 +83,7 @@ int main(int argc, char** argv)
 	MCTS agent;
 	board env;
 	env.clear();
+	srand(time(NULL)) ;
 	//loop for gtp input and output
   string cmd, color, pos, tmp; //cmd, color, position
 	//color black is represented by bool 0

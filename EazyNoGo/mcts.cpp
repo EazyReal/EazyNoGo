@@ -1,5 +1,7 @@
 #include "mcts.h"
 
+#define DEBUG
+
 //btw beause of base num stablize the initial Q(s,a)m, thus unexplored child will always get accesed before win 1 child
 
 
@@ -81,11 +83,21 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
     for(int block_i = 0; block_i < BLOCKSIZE; block_i++) //do blocksz cycles
     {
       reset();
+#ifdef DEGUG
+      cerr << "reset done" << endl;
+#endif
       //selection
       Node* selected_root = select(root);
+#ifdef DEGUG
+      cerr << "select done" << endl;
+#endif
       //expansion
       bool res;
-      if(selected_root->expand(simu_board, rave_cnt, rave_num) == 0)
+      int nc = selected_root->expand(simu_board, rave_cnt, rave_num);
+#ifdef DEGUG
+      cerr << "expand done" << endl;
+#endif
+      if(nc == 0)
       {
         res = simu_board.just_play_color();
       }
@@ -93,8 +105,14 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
         //simulation
         res = roll_out();
       }
+#ifdef DEGUG
+      cerr << "simulation done" << endl;
+#endif
       //backpropogation
       backpropogation(res);
+#ifdef DEGUG
+      cerr << "backpro done" << endl;
+#endif
     }
     cur_t = clock();
   }

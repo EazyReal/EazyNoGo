@@ -50,7 +50,7 @@ Node* Node::best_child()
     }
   }
   std::uniform_int_distribution<int> dis(0, maxC.size()-1);
-  return maxC[dis(gen)];
+  return maxC[rand()%maxC.size()];
 }
 
 void Node::update(bool result)
