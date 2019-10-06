@@ -20,7 +20,7 @@
 #define BOARDVL 81
 #define BASENUM 10
 
-#define USERAVEQ 0
+#define USERAVEQ 1
 #define RAVEB 0.0001
 #define UCB_WEIGHT 0.25
 

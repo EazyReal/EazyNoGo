@@ -20,6 +20,7 @@ inline double Node::getQ()
     Q = (1-beta)*(num/cnt)+beta*(rnum/rcnt);
   }
   else{
+    //assert(parent != NULL);
     Q = (num/cnt) + UCB_WEIGHT*sqrt(parent->log_cnt/cnt);
   }
   return Q;
@@ -80,15 +81,16 @@ int Node::expand(board& b, double rave_cnt[2][BOARDVL], double rave_num[2][BOARD
   return cptr.size(); // may use this
 }
 
-void Node::initNode(Node* parent,Action i,bool c,double rcnt,double rnum)
+void Node::initNode(Node* p,Action i,bool c,double rcnt,double rnum)
 {
-  parent = parent;
+  this->parent = p; //parent = parent => bugged
   memset(idx, -1, sizeof(idx));
   color = c;
   pos = i;
   num = BASENUM/2.0;
   cnt = BASENUM; //stablize the beginnnig of training
-  rnum = rnum;
-  rcnt = rcnt;
-  log_cnt = 1.0; //
+  //todo:r heuristic
+  rnum = BASENUM/2.0;
+  rcnt = BASENUM;
+  log_cnt = log(BASENUM); //
 }

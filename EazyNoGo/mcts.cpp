@@ -1,6 +1,6 @@
 #include "mcts.h"
 
-#define DEBUG
+//#define DEBUG
 
 //btw beause of base num stablize the initial Q(s,a)m, thus unexplored child will always get accesed before win 1 child
 
@@ -11,7 +11,7 @@ void MCTS::init_with_board(board b)
   root_board = b; //copy a board
   root->initNode(NULL, root_board.just_play_color(), BOARDSZ, 0, 0);
   //use NULL, BOARDSZ, 0, 0 for last action doesnt matter
-  root->expand(b,rave_num,rave_cnt);
+  root->expand(root_board,rave_num,rave_cnt);
   total = 0;
 }
 
@@ -29,7 +29,13 @@ Node* MCTS::select(Node* r)
   path.push_back(cur);
   while(cur->cptr.size()) //if cptr.size() = 0, not expanded or game over
   {
+    #ifdef DEBUG
+    cout << "calc best start\n";
+    #endif
     cur = cur->best_child();
+    #ifdef DEBUG
+    cout << "calc best done\n";
+    #endif
     simu_board.add(cur->pos, cur->color);
     rave_path[cur->color].push_back(cur->pos);
     path.push_back(cur);
@@ -74,28 +80,28 @@ void MCTS::backpropogation(bool res)
 int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random playable move
 {
   init_with_board(init_b);
-
   time_t start_t, cur_t;
   start_t = clock();
+  cur_t = clock();
 
-  while(start_t + time_limit < cur_t)//while time available
+  while(start_t + time_limit > cur_t)//while time available
   {
     for(int block_i = 0; block_i < BLOCKSIZE; block_i++) //do blocksz cycles
     {
       reset();
-#ifdef DEGUG
-      cerr << "reset done" << endl;
+#ifdef DEBUG
+      cout << "reset done\n";
 #endif
       //selection
       Node* selected_root = select(root);
-#ifdef DEGUG
-      cerr << "select done" << endl;
+#ifdef DEBUG
+      cerr << "select done\n";
 #endif
       //expansion
       bool res;
       int nc = selected_root->expand(simu_board, rave_cnt, rave_num);
-#ifdef DEGUG
-      cerr << "expand done" << endl;
+#ifdef DEBUG
+      cerr << "expand done\n";
 #endif
       if(nc == 0)
       {
@@ -105,13 +111,13 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
         //simulation
         res = roll_out();
       }
-#ifdef DEGUG
-      cerr << "simulation done" << endl;
+#ifdef DEBUG
+      cerr << "simulation done\n";
 #endif
       //backpropogation
       backpropogation(res);
-#ifdef DEGUG
-      cerr << "backpro done" << endl;
+#ifdef DEBUG
+      cerr << "backpro done\n";
 #endif
     }
     cur_t = clock();
