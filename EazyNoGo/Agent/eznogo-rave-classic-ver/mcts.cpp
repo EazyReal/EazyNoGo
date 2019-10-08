@@ -57,14 +57,10 @@ void MCTS::backpropogation(bool res)
   for(int t = 0; t < path.size(); t++)
 	{
 		path[t]->update(res);
-    //update child's rave value because expansion method create unexplored children
-    //these children need good heuristic
-    //2.7
-    bool c = path[t]->color; //c is the color of its children
+    bool c = path[t]->color;
+    //update subtree action value AMAF
     for(int tp = t/2; tp < rave_path[c].size(); tp++) //todo t/2 is approximately
     {
-      //int k = path[t]->idx[rave_path[0][tp]];
-      //if( k !=-1) path[t]->cptr[k]->rave_update(res);
       if(rave_path[c][tp] == path[t]->pos) path[t]->rave_update(res);
     }
 	}

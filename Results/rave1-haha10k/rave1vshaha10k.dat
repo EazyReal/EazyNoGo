@@ -1,0 +1,21 @@
+# Black: EazyNoGo(MCTS+UCB+RAVE)
+# BlackCommand: EazyNoGo/eznogo-rave1
+# BlackLabel: EazyNoGo(MCTS+UCB+RAVE)
+# BlackVersion: 2.8
+# Date: October 8, 2019 at 10:43:25 PM CST
+# Host: linyantongs-MBP
+# Komi: 6.5
+# Referee: -
+# Size: 9
+# White: haha25_rn20_bn0
+# WhiteCommand: HaHaNoGo/hahanogo 10000
+# WhiteLabel: haha25_rn20_bn0
+# WhiteVersion: 
+# Xml: 0
+#
+#GAME	RES_B	RES_W	RES_R	ALT	DUP	LEN	TIME_B	TIME_W	CPU_B	CPU_W	ERR	ERR_MSG
+0	W+R	W+R	W+R	0	-	72	116.3	2.3	0	0	0	
+1	W+R	W+R	W+R	0	-	70	116.6	2.3	0	0	0	
+2	W+R	W+R	W+R	0	-	70	112.6	2.3	0	0	0	
+3	W+R	W+R	W+R	0	-	72	122.6	2.4	0	0	0	
+4	W+R	W+R	W+R	0	-	70	105.3	2.3	0	0	0	

@@ -13,24 +13,18 @@ Node::~Node()
 
 inline double Node::getQ()
 {
-  double Q = (num/cnt);
-  //double UCB = sqrt(UCB_C*parent->log_cnt/cnt);
-  double UCB = UCB_C*sqrt(parent->log_cnt/cnt);
-  double rave_Q, beta;
-  if(USERAVEQ)
-  {
-    //ver2.6
-    rave_Q = (rnum/rcnt);
-    beta = sqrt(RAVEK/(3*parent->cnt + RAVEK));
-  }
-  return USERAVEQ ? ((1-beta)*Q + beta*rave_Q + UCB) : (Q+UCB);
+  if(cnt == BASENUM) return INFQ;
+#ifndef USERAVEQ
+  return (num/cnt)+UCB_C*sqrt(parent->log_cnt/cnt);
+#endif
+  //note that: this is for b ~= 0 in the fomulla of beta = N'/(N+N'+4N*N'*b*b) when b is small
+  return (num+rnum+UCB_C*sqrt(parent->log_cnt*cnt))/(rcnt+cnt);
 }
 
 
 Node* Node::best_child()
 {
-  //should not use this condition:) or will let to segment fault
-  if(cptr.empty()) return NULL;
+  if(cptr.empty()) return nullptr; //segment fault prevantion
 
   vector<Node*> maxC;
   double maxQ = cptr[0]->getQ();

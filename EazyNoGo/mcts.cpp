@@ -57,15 +57,14 @@ void MCTS::backpropogation(bool res)
   for(int t = 0; t < path.size(); t++)
 	{
 		path[t]->update(res);
-    //update child's rave value because expansion method create unexplored children
-    //these children need good heuristic
-    //2.7
-    bool c = path[t]->color; //c is the color of its children
-    for(int tp = t/2; tp < rave_path[c].size(); tp++) //todo t/2 is approximately
+    //AMAF
+    //if there is action A in the subtree from the afterstate S(color, pos) now
+    //then Q(S(now),A) should be updated
+    bool c = !path[t]->color;//the cur color to play(= children's color)
+    for(int tp = t/2; tp < rave_path[c].size(); tp++) //tp=t/2=>subtree, tp=0=>all
     {
-      //int k = path[t]->idx[rave_path[0][tp]];
-      //if( k !=-1) path[t]->cptr[k]->rave_update(res);
-      if(rave_path[c][tp] == path[t]->pos) path[t]->rave_update(res);
+      int k = path[t]->idx[rave_path[c][tp]];
+      if(k != -1) path[t]->cptr[k]->rave_update(res);
     }
 	}
 }
@@ -97,13 +96,12 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
         res = simu_board.just_play_color();
       }
       else{
-        //one step looko ahead, haha's, may be too greedy to explore??
-        //todo2.9 : add visited or not or use value solution
+        //one step look ahead, will choose unexplored fist for INFQ
         Node* cur = selected_root->best_child();
         simu_board.add(cur->pos, cur->color);
         rave_path[cur->color].push_back(cur->pos);
         path.push_back(cur);
-        //simulation
+        //simulation, with the intuition of two-go position is better
         res = roll_out();
       }
       //backpropogation

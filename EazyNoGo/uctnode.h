@@ -20,9 +20,10 @@
 #define BOARDVL 81
 #define BASENUM 10
 
-#define USERAVEQ 1
+#define USERAVEQ
 #define RAVEK 1000
 #define UCB_C 0.25
+#define INFQ 1000.0
 
 typedef int Action; //for clarity
 

@@ -11,7 +11,6 @@
 
 //lib of algorithms for game
 #include "board.h"
-//#include "random_agent.h"
 #include "mcts.h"
 
 //#define NAME "EazyNoGo(MCTS+UCB)"
@@ -38,7 +37,7 @@ uctnode:
 BASENUM double(for stablizing beginnnig)
 UCB_C(for ucb tuning)
 eps(for maxQ)
-USERAVE bool
+USERAVE (ifndef)
 RAVEK the threshold that no rave is more important then rave
 */
 
