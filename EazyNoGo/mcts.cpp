@@ -29,13 +29,7 @@ Node* MCTS::select(Node* r)
   path.push_back(cur);
   while(cur->cptr.size()) //if cptr.size() = 0, not expanded or game over
   {
-    #ifdef DEBUG
-    cout << "calc best start\n";
-    #endif
     cur = cur->best_child();
-    #ifdef DEBUG
-    cout << "calc best done\n";
-    #endif
     simu_board.add(cur->pos, cur->color);
     rave_path[cur->color].push_back(cur->pos);
     path.push_back(cur);
@@ -68,11 +62,13 @@ void MCTS::backpropogation(bool res)
 		path[t]->update(res);
     //update child's rave value because expansion method create unexplored children
     //these children need good heuristic
-    bool c = !path[t]->color; //c is the color of its children
-    for(int tp = t/2; tp < rave_path[c].size(); tp++)
+    //2.7 
+    bool c = path[t]->color; //c is the color of its children
+    for(int tp = t/2; tp < rave_path[c].size(); tp++) //todo t/2 is approximately
     {
-      int k = path[t]->idx[rave_path[0][tp]];
-      if( k !=-1) path[t]->cptr[k]->rave_update(res);
+      //int k = path[t]->idx[rave_path[0][tp]];
+      //if( k !=-1) path[t]->cptr[k]->rave_update(res);
+      if(rave_path[c][tp] == path[t]->pos) path[t]->rave_update(res);
     }
 	}
 }
@@ -99,6 +95,11 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
         res = simu_board.just_play_color();
       }
       else{
+        //one step looko ahead, haha's
+        Node* cur = selected_root->best_child();
+        simu_board.add(cur->pos, cur->color);
+        rave_path[cur->color].push_back(cur->pos);
+        path.push_back(cur);
         //simulation
         res = roll_out();
       }

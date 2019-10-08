@@ -21,8 +21,8 @@
 #define BASENUM 10
 
 #define USERAVEQ 1
-#define RAVEB 0.0001
-#define UCB_WEIGHT 0.25
+#define RAVEK 1000
+#define UCB_C 2
 
 typedef int Action; //for clarity
 

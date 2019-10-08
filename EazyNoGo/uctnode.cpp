@@ -13,17 +13,16 @@ Node::~Node()
 
 inline double Node::getQ()
 {
-  double Q, beta;
+  double Q = (num/cnt);
+  double UCB = sqrt(UCB_C*parent->log_cnt/cnt);
+  double rave_Q, beta;
   if(USERAVEQ)
   {
-    beta = rcnt/(cnt+rcnt+4*cnt*RAVEB*rcnt*RAVEB);
-    Q = (1-beta)*(num/cnt)+beta*(rnum/rcnt);
+    //ver2.6
+    rave_Q = (rnum/rcnt);
+    beta = sqrt(RAVEK/(3*parent->cnt + RAVEK));
   }
-  else{
-    //assert(parent != NULL);
-    Q = (num/cnt) + UCB_WEIGHT*sqrt(parent->log_cnt/cnt);
-  }
-  return Q;
+  return USERAVEQ ? ((1-beta)*Q + beta*rave_Q + UCB) : (Q+UCB);
 }
 
 
