@@ -1,0 +1,26 @@
+# Black: raveb=0.0001, simu=0.5s
+# BlackCommand: EazyNoGo/eazynogo-rave1
+# BlackLabel: raveb=0.0001, simu=0.5s:2.1
+# BlackVersion: 2.1
+# Date: October 6, 2019 at 6:54:56 PM CST
+# Host: linyantongs-MacBook-Pro.local
+# Komi: 6.5
+# Referee: -
+# Size: 9
+# White: raveb=0.0001, simu=0.5s
+# WhiteCommand: EazyNoGo/eazynogo-ucb1
+# WhiteLabel: raveb=0.0001, simu=0.5s:2.1
+# WhiteVersion: 2.1
+# Xml: 0
+#
+#GAME	RES_B	RES_W	RES_R	ALT	DUP	LEN	TIME_B	TIME_W	CPU_B	CPU_W	ERR	ERR_MSG
+0	W+R	W+R	W+R	0	-	72	20.2	21.6	0	0	0	
+1	W+R	W+R	W+R	0	-	76	21.1	22.4	0	0	0	
+2	W+R	W+R	W+R	0	-	76	21	22.4	0	0	0	
+3	W+R	W+R	W+R	0	-	76	21.1	22.5	0	0	0	
+4	W+R	W+R	W+R	0	-	76	21.3	22.4	0	0	0	
+5	W+R	W+R	W+R	0	-	72	20.4	21.3	0	0	0	
+6	W+R	W+R	W+R	0	-	72	19.7	21.3	0	0	0	
+7	W+R	W+R	W+R	0	-	72	19.7	21.3	0	0	0	
+8	W+R	W+R	W+R	0	-	74	20.9	22	0	0	0	
+9	W+R	W+R	W+R	0	-	74	20.9	22.1	0	0	0	

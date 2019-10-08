@@ -22,7 +22,7 @@
 
 #define USERAVEQ 1
 #define RAVEK 1000
-#define UCB_C 2
+#define UCB_C 0.25
 
 typedef int Action; //for clarity
 

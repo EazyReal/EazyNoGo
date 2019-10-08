@@ -17,6 +17,8 @@ gogui-twogtp -black "python3 xxx.py xxx xxx" -white "./HaHaNoGo xxx" -size 9 -au
 @EazyNoGo/
 gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/eazynogo" -white "HaHaNoGo/hahanogo" -size 9 -auto -games 1 -sgffile Results/results
 
+gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/eazynogo" -white "EazyNoGo/eazynogo-random" -size 9 -auto -games 1 -sgffile Results/results
+
 
 reference:
 hahanogo project : https://github.com/lclan1024/HaHaNoGo

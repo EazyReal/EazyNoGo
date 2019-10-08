@@ -1,0 +1,17 @@
+# Black: EazyNoGo
+# BlackCommand: EazyNoGo/eazynogo-random
+# BlackLabel: EazyNoGo:0.1
+# BlackVersion: 0.1
+# Date: October 6, 2019 at 6:12:25 PM CST
+# Host: linyantongs-MacBook-Pro.local
+# Komi: 6.5
+# Referee: -
+# Size: 9
+# White: EazyNoGo
+# WhiteCommand: EazyNoGo/eazynogo
+# WhiteLabel: EazyNoGo:0.1
+# WhiteVersion: 0.1
+# Xml: 0
+#
+#GAME	RES_B	RES_W	RES_R	ALT	DUP	LEN	TIME_B	TIME_W	CPU_B	CPU_W	ERR	ERR_MSG
+0	W+R	W+R	W+R	0	-	74	0	21.7	0	0	0	

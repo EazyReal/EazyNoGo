@@ -62,7 +62,7 @@ void MCTS::backpropogation(bool res)
 		path[t]->update(res);
     //update child's rave value because expansion method create unexplored children
     //these children need good heuristic
-    //2.7 
+    //2.7
     bool c = path[t]->color; //c is the color of its children
     for(int tp = t/2; tp < rave_path[c].size(); tp++) //todo t/2 is approximately
     {
@@ -80,10 +80,15 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
   start_t = clock();
   cur_t = clock();
 
+#ifdef USETIME
   while(start_t + time_limit > cur_t)//while time available
   {
     for(int block_i = 0; block_i < BLOCKSIZE; block_i++) //do blocksz cycles
     {
+#endif
+#ifdef USEROUNDS
+  for(int ep = 0; ep < DEFAUT_SIMS; ep++){
+#endif
       reset();
       //selection
       Node* selected_root = select(root);
@@ -95,7 +100,7 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
         res = simu_board.just_play_color();
       }
       else{
-        //one step looko ahead, haha's
+        //one step looko ahead, haha's, may be too greedy to explore??
         Node* cur = selected_root->best_child();
         simu_board.add(cur->pos, cur->color);
         rave_path[cur->color].push_back(cur->pos);
@@ -105,13 +110,17 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
       }
       //backpropogation
       backpropogation(res);
+#ifdef USETIME
     }
     cur_t = clock();
+#endif
   }
   //return result, forget to judge NULL at first
   Node *best_node = root->best_child();
   Action maxA = (best_node == NULL) ? -1 : best_node->pos;
+#ifdef USETIME
   assert(cur_t < start_t + time_limit + time_limit); //for no inf loop;
+#endif
   clear();
   return maxA;
 }

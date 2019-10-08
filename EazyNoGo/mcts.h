@@ -18,9 +18,12 @@
 #define BLACK 0
 #define WHITE 1
 
+#define USEROUNDS //no define USETIME, from rave2.8, ucb1.4
+
 #define BOARDSZ 9
 #define BOARDVL 81
 #define DEFAUT_TIME_PER_STEP (time_t(0.5*CLOCKS_PER_SEC))
+#define DEFAUT_SIMS 50000
 #define BLOCKSIZE 50
 
 typedef int Action;//for clarity

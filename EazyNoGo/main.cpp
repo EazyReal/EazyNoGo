@@ -15,11 +15,11 @@
 #include "random_agent.h"
 #include "mcts.h"
 
-//#define NAME "EazyNoGo(MCTS+UCB1)"
-//#define VERSION "1.1" //0=beta
-#define NAME "EazyNoGo(MCTS+RAVEha)"
-#define VERSION "2.7" //0=beta
-#define BOARDSZ 9
+//#define NAME "EazyNoGo(MCTS+UCB)"
+//#define VERSION "1.4" //0=beta
+#define NAME "EazyNoGo(MCTS+UCB+RAVE)"
+#define VERSION "2.8" //0=beta
+//#define BOARDSZ 9
 #define BOARDVL 81
 #define BLACK 0
 #define WHITE 1
