@@ -101,6 +101,7 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
       }
       else{
         //one step looko ahead, haha's, may be too greedy to explore??
+        //todo2.9 : add visited or not or use value solution
         Node* cur = selected_root->best_child();
         simu_board.add(cur->pos, cur->color);
         rave_path[cur->color].push_back(cur->pos);

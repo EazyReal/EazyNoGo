@@ -15,7 +15,7 @@ inline double Node::getQ()
 {
   double Q = (num/cnt);
   //double UCB = sqrt(UCB_C*parent->log_cnt/cnt);
-  double UCB = UCB_C*sqrt(parent->log_cnt/cnt);
+  double UCB = UCB_WIGHT*sqrt(parent->log_cnt/cnt);
   double rave_Q, beta;
   if(USERAVEQ)
   {
