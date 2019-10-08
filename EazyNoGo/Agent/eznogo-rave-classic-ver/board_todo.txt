@@ -1,0 +1,12 @@
+board should be like gym
+
+support methods list:
+
+env.reset()
+env.render()
+env.step()
+env.close()
+
+env.action_space()
+
+return  = {observations, reward, done, info.}
