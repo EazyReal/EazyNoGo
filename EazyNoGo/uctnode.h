@@ -46,8 +46,8 @@ public:
   int idx[BOARDVL+1]; //idx: board pos => cptr idx
   vector<Node*> cptr; //children of the node
 
-  void initNode(Node* parent, Action i, bool c, double rcnt, double rnum);
-  int expand(board& b, double rave_cnt[2][BOARDVL], double rave_num[2][BOARDVL]);
+  void initNode(Node* parent, Action i, bool c);
+  int expand(board& b);
   void update(bool result);
   void rave_update(bool result);
   Node* best_child();

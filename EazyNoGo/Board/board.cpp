@@ -75,7 +75,7 @@ bool board::check(int i,bool j)//j=0 =>b
     //cout<<"check"<<i<<endl;
     bool flag=false;
     int l,k;
-    if(ban[j].get(i))return false;
+    if(ban[j].get(i))return false; //if it is banned it will not be unbanned = > memorization
     else if(notsafe[j].get(i)==0)return true;
     notsafe[j].minus(i);
 #if search == 2
@@ -134,7 +134,7 @@ void board :: getallair()
         {
             u=r=d=l=-1;
             t=i*BOARDCUL+j;
-            if(!bitb[0].get(t) && !bitb[1].get(t))//ªÅ¥Õ
+            if(!bitb[0].get(t) && !bitb[1].get(t))//ï¿½Å¥ï¿½
             {
                 if(i!=0)
                 {
@@ -248,6 +248,7 @@ bool board::just_play_color()
     return 0;
 }
 
+//get all valid move for black/white/both player now, note that bone/wone/two will upate
 void board::getv(int bone[BOARDSSIZE],int wone[BOARDSSIZE],int two[BOARDSSIZE] ,int &bsize,int &wsize ,int &tsize)
 {
     bool bc,wc;
@@ -489,4 +490,3 @@ bool board::isempty()
 {
     return (bitb[0].isempty())&&(bitb[1].isempty());
 }
-

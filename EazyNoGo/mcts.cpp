@@ -2,16 +2,13 @@
 
 //#define DEBUG
 
-//btw beause of base num stablize the initial Q(s,a)m, thus unexplored child will always get accesed before win 1 child
-
-
 void MCTS::init_with_board(board b)
 {
   root = new Node;
   root_board = b; //copy a board
-  root->initNode(NULL, root_board.just_play_color(), BOARDSZ, 0, 0);
+  root->initNode(NULL, root_board.just_play_color(), BOARDSZ);
   //use NULL, BOARDSZ, 0, 0 for last action doesnt matter
-  root->expand(root_board,rave_num,rave_cnt);
+  root->expand(root_board);
   total = 0;
 }
 
@@ -94,7 +91,7 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
       Node* selected_root = select(root);
       //expansion
       bool res;
-      int nc = selected_root->expand(simu_board, rave_cnt, rave_num);
+      int nc = selected_root->expand(simu_board);
       if(nc == 0)
       {
         res = simu_board.just_play_color();
