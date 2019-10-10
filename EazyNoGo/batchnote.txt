@@ -13,13 +13,13 @@
 //4.3 fixed rave[0]path = wp...
 
 //
-5.0 simup per step exp, expand strategy(required selected_root > basenum+1)
+5.0 simu per step can be controlled, expand strategy(required selected_root > basenum)(removed in 6)
 (this make sure corner first)
-5.1 actual simp apllied, select , > base => select || root
+5.1 apply sim_per_step, select > base => select > base || root
 
 //
 6.0
-huge bug fixed(initnode params) by printing statistics
+huge bug fixed(initnode params) by printing some node statistics(mvc winrate and raveval)
 board reference(&) to be faster
 reach 50%winrate vs haha10k
 6.1 the ver to test with hahanogo 10000 10games
