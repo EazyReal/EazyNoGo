@@ -15,10 +15,12 @@ g++ *.cpp -o ${newver}
 cd ..
 
 read -p "input black program(EazyNoGo/): " black
-read -p "input whilte program(HaHaNoGo/hahanogo {}): " whitenum
+read -p "input HaHaNoGo strength by simulation rounds: " whitenum
+read -p "game number(w vs b gnum + b vs w gnum): " gamenum
 
 cd Results/
 mkdir ${black}-haha${whitenum}
 cd ..
 
-gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/${black}" -white "HaHaNoGo/hahanogo ${whitenum}" -size 9 -auto -games 5 -sgffile Results/${black}-haha${whitenum}/games
+gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/${black}" -white "HaHaNoGo/hahanogo ${whitenum}" -size 9 -auto -games ${gamenum} -sgffile Results/${black}-haha${whitenum}/games-bvw
+gogui-1.4.9/bin/gogui-twogtp -white "EazyNoGo/${black}" -black "HaHaNoGo/hahanogo ${whitenum}" -size 9 -auto -games ${gamenum} -sgffile Results/${black}-haha${whitenum}/games-wvb

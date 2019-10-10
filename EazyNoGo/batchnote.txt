@@ -22,3 +22,8 @@
 huge bug fixed(initnode params) by printing statistics
 board reference(&) to be faster
 reach 50%winrate vs haha10k
+6.1 the ver to test with hahanogo 10000 10games
+
+//todo
+7.0 may try some measurement instead of mvc
+may try use rave heuristic form instead of score(may not be better, or is the same)
