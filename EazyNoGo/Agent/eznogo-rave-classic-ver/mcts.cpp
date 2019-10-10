@@ -6,7 +6,7 @@ void MCTS::init_with_board(board b)
 {
   root = new Node;
   root_board = b; //copy a board
-  root->initNode(NULL, root_board.just_play_color(), BOARDSZ);
+  root->initNode(NULL, BOARDVL, root_board.just_play_color());//2019.10.10.17:09....
   //use NULL, BOARDSZ, 0, 0 for last action doesnt matter
   root->expand(root_board);
   total = 0;
@@ -18,13 +18,15 @@ void MCTS::reset()
   path.clear(); //clear select path
   rave_path[0].clear();
   rave_path[1].clear();
+  simu_boardb.bpsize=0;
+	simu_boardb.wpsize=0;
 }
 
 Node* MCTS::select(Node* r)
 {
   Node* cur = r;
   path.push_back(cur);
-  while(cur->cptr.size()) //if cptr.size() = 0, not expanded or game over
+  while((cur->cnt > BASENUM||cur = r)  && cur->cptr.size()) //if cptr.size() = 0, not expanded or game over
   {
     cur = cur->best_child();
     simu_board.add(cur->pos, cur->color);
@@ -46,7 +48,7 @@ bool MCTS::roll_out() //the one in the board
   for(int i = 0; i < simu_board.bpsize; i++)
     rave_path[0].push_back(simu_board.bpath[i]);
   for(int i = 0; i < simu_board.wpsize; i++)
-    rave_path[0].push_back(simu_board.wpath[i]);
+    rave_path[1].push_back(simu_board.wpath[i]); //bugged until 2019/10/0 18:22
   return (res == -1);
 }
 
@@ -59,29 +61,21 @@ void MCTS::backpropogation(bool res)
 		path[t]->update(res);
     bool c = path[t]->color;
     //update subtree action value AMAF
-    for(int tp = t/2; tp < rave_path[c].size(); tp++) //todo t/2 is approximately
+    for(int tp = 0; tp < rave_path[c].size(); tp++) //the former play matters more in nogo
     {
       if(rave_path[c][tp] == path[t]->pos) path[t]->rave_update(res);
     }
 	}
 }
 
-int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random playable move
+Action MCTS::best_action(board init_b, bool color, int simu_per_step)
 {
   init_with_board(init_b);
   time_t start_t, cur_t;
   start_t = clock();
   cur_t = clock();
 
-#ifdef USETIME
-  while(start_t + time_limit > cur_t)//while time available
-  {
-    for(int block_i = 0; block_i < BLOCKSIZE; block_i++) //do blocksz cycles
-    {
-#endif
-#ifdef USEROUNDS
-  for(int ep = 0; ep < DEFAUT_SIMS; ep++){
-#endif
+  for(int ep = 0; ep < simu_per_step; ep++){
       reset();
       //selection
       Node* selected_root = select(root);
@@ -93,8 +87,6 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
         res = simu_board.just_play_color();
       }
       else{
-        //one step looko ahead, haha's, may be too greedy to explore??
-        //todo2.9 : add visited or not or use value solution
         Node* cur = selected_root->best_child();
         simu_board.add(cur->pos, cur->color);
         rave_path[cur->color].push_back(cur->pos);
@@ -104,10 +96,6 @@ int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random 
       }
       //backpropogation
       backpropogation(res);
-#ifdef USETIME
-    }
-    cur_t = clock();
-#endif
   }
   //return result, forget to judge NULL at first
   Node *best_node = root->best_child();

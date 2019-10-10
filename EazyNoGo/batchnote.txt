@@ -1,0 +1,24 @@
+//tag3.3(all amaf, base changed)
+//3.4 const double eps = 0.0001;
+//3.5 t/2 start update raveq
+//from 2->3(formula(andINFQ)/backpro/basenum//eps)
+//3.5 differ from haha(INFQ/backpro)
+//3.6 no INFQ
+//3.7 no one step lookahead, yes INFQ
+//3.8 no INQ, onestep
+
+//4.0 best move calculation = mvc
+//4.1 one threshold + one step look ahead
+//4.2 tp = 0
+//4.3 fixed rave[0]path = wp...
+
+//
+5.0 simup per step exp, expand strategy(required selected_root > basenum+1)
+(this make sure corner first)
+5.1 actual simp apllied, select , > base => select || root
+
+//
+6.0
+huge bug fixed(initnode params) by printing statistics
+board reference(&) to be faster
+reach 50%winrate vs haha10k

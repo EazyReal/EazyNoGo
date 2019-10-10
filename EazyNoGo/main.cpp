@@ -6,6 +6,7 @@
 #include <sstream>
 #include <ctime> //clock = long, second =  clock()/CLOCKS_PER_SEC
 #include <cassert>
+#include<iomanip>
 
 #define DEBUG
 
@@ -13,33 +14,14 @@
 #include "board.h"
 #include "mcts.h"
 
-//#define NAME "EazyNoGo(MCTS+UCB)"
-//#define VERSION "1.4" //0=beta
-#define NAME "EazyNoGo(MCTS+UCB+RAVE)"
-#define VERSION "2.8" //0=beta
+#define NAME "EazyNoGo(MCTS+UCB+newRAVE)"
+#define VERSION "6.0" //0=beta
+
 //#define BOARDSZ 9
 #define BOARDVL 81
 #define BLACK 0
 #define WHITE 1
-#define RESIGN 0.2
 //typedef int Action //for clarity
-
-/*
-hyper params
-
-mcts:
-#define USEROUNDS bool (use roud or time)
-#define DEFAUT_TIME_PER_STEP (time_t(0.5*CLOCKS_PER_SEC))
-#define DEFAUT_SIMS 50000(if use round, the round num)
-#define BLOCKSIZE 50(if use time, the check time block size)
-
-uctnode:
-BASENUM double(for stablizing beginnnig)
-UCB_C(for ucb tuning)
-eps(for maxQ)
-USERAVE (ifndef)
-RAVEK the threshold that no rave is more important then rave
-*/
 
 using namespace std;
 
@@ -95,17 +77,15 @@ string known_commands[11] =
 int main(int argc, char** argv)
 {
   //some setting, initialization
-  //board env; env.clear();
-  //gen = std::default_random_engine(rd());
-  //std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-	//RandomAgent agent;
 	MCTS agent;
 	board env;
 	env.clear();
 	srand(time(NULL)) ;
+	int simu_per_step = DEFAUT_SIMS;
+	if(argc == 2) istringstream(string(argv[1])) >> simu_per_step;
+	cerr << "simulate " << simu_per_step << "/step" << endl;
+  string cmd, color, pos, tmp; //cmd, color(black = 0), position
 	//loop for gtp input and output
-  string cmd, color, pos, tmp; //cmd, color, position
-	//color black is represented by bool 0
   while(cin >> cmd)
   {
 		if(cmd == "play")
@@ -123,12 +103,12 @@ int main(int argc, char** argv)
 			if(color[0] == 'b' || color[0] == 'B') c = BLACK; else c = WHITE;
 
 			//the agent make choices
-			Action a_max = agent.best_action(env, c);
+			Action a_max = agent.best_action(env, c, simu_per_step);
 			if(a_max == -1) {cout << "=resign" << endl << endl; continue;}
 			if(cmd[0] == 'g') env.add(a_max, c);
-
-			if(agent.calc_winrate(env, c) < RESIGN) cout << "=resign" << endl << endl;
-			else cout << '=' << Int2GTP(a_max) << endl << endl;
+			//note that the tree use board to search
+			//should always balck first or will be wrong adding
+			cout << '=' << Int2GTP(a_max) << endl << endl;
 		}
 		else if(cmd == "protocol_version") { cout << "=2" << endl << endl;}
 		else if(cmd == "name") {cout << "=" << NAME << endl << endl;}

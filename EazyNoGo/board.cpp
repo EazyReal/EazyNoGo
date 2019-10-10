@@ -393,7 +393,8 @@ string board::inttostring(int i)
     return s;
 }
 
-double board::simulate(bool j,int bone[BOARDSSIZE],int wone[BOARDSSIZE],int two[BOARDSSIZE] ,int bsize,int wsize ,int tsize )
+ //modified so that result is winner
+bool board::simulate(bool j,int bone[BOARDSSIZE],int wone[BOARDSSIZE],int two[BOARDSSIZE] ,int bsize,int wsize ,int tsize )
 {
     int i,k;
     bool bc,wc;
@@ -452,8 +453,9 @@ FLAG2 :
             if(check(k,j))
             {
                 add(k,j);
-                // bpath[bpsize] = k;
-                // bpsize++;
+                //wp and bp should not add to rave
+                //bpath[bpsize] = k;
+                //bpsize++;
                 j=!j;
 #if dolog ==1
                 cout << inttostring(k);
@@ -474,8 +476,9 @@ FLAG2 :
             {
                 add(k,j);
                 j=!j;
-                //  wpath[wpsize] = k;
-                //  wpsize++;
+                //wp and bp should not add to rave
+                //wpath[wpsize] = k;
+                //wpsize++;
 #if dolog ==1
                 cout<<inttostring(k);
 #endif
@@ -483,7 +486,7 @@ FLAG2 :
             }
         }
     }
-    return (j==1)?1:-1;
+    return !j; //modified so that result is winner(the one that is not the one cannot move)
 }
 
 bool board::isempty()

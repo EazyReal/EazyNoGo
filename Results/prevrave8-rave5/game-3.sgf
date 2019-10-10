@@ -1,0 +1,19 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[9]
+KM[6.5]PB[EazyNoGo(MCTS+UCB+RAVE)]PW[EazyNoGo(MCTS+UCB+newRAVE)]DT[2019-10-09]
+RE[B+R]
+C[Black command: EazyNoGo/eazynogo-rave8
+White command: EazyNoGo/eznogo-rave5
+Black version: 2.8
+White version: 3.5
+Result[Black\]: B+R
+Result[White\]: B+R
+Host: linyantongs-MBP
+Date: October 9, 2019 at 12:41:58 AM CST]
+;B[ia];W[ib];B[ci];W[ah];B[ai];W[fi];B[aa];W[ba];B[dh];W[hb]
+;B[ei];W[bb];B[gd];W[ga];B[ad];W[ig];B[if];W[da];B[ca];W[ae]
+;B[eb];W[id];B[eh];W[hc];B[eg];W[ac];B[ii];W[ih];B[fa];W[db]
+;B[cb];W[hf];B[ee];W[ea];B[fg];W[ag];B[fd];W[dc];B[ce];W[ic]
+;B[ie];W[hh];B[be];W[af];B[fb];W[gg];B[gi];W[gh];B[bh];W[df]
+;B[cd];W[ch];B[gc];W[gf];B[fe];W[de];B[dd];W[gb];B[bf];W[hd]
+;B[ed];W[dg];B[ge];W[bc];B[cf];W[bg];B[he];W[ec];B[ff];W[cg]
+;B[bi];W[hg];B[cc];W[fh];B[bd])

@@ -1,0 +1,19 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[9]
+KM[6.5]PB[EazyNoGo(MCTS+UCB+RAVE)]PW[EazyNoGo(MCTS+UCB+newRAVE)]DT[2019-10-09]
+RE[B+R]
+C[Black command: EazyNoGo/eazynogo-rave8
+White command: EazyNoGo/eznogo-rave6
+Black version: 2.8
+White version: 3.6
+Result[Black\]: B+R
+Result[White\]: B+R
+Host: linyantongs-MacBook-Pro.local
+Date: October 9, 2019 at 10:56:02 AM CST]
+;B[hg];W[ab];B[aa];W[ib];B[if];W[ih];B[ii];W[ha];B[hh];W[ad]
+;B[ci];W[bc];B[gi];W[gg];B[ga];W[bh];B[hc];W[cg];B[di];W[ea]
+;B[ic];W[ia];B[be];W[de];B[cc];W[fa];B[bb];W[hd];B[bd];W[ae]
+;B[af];W[gc];B[cb];W[id];B[gh];W[ce];B[ie];W[bf];B[dc];W[cf]
+;B[ag];W[fg];B[fc];W[eb];B[eh];W[ei];B[fe];W[ec];B[ge];W[ff]
+;B[gf];W[fh];B[dh];W[eg];B[ed];W[he];B[ee];W[gd];B[gb];W[fi]
+;B[hf];W[db];B[ai];W[fb];B[ch];W[ah];B[ef];W[df];B[ca];W[dg]
+;B[dd])

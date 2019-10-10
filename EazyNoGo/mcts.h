@@ -13,6 +13,7 @@
 #include<stdlib.h>
 #include<random> //new random lib c++14
 #include<math.h>
+#include<iomanip>
 
 #include <ctime>
 #define BLACK 0
@@ -26,6 +27,8 @@
 #define DEFAUT_SIMS 50000
 #define BLOCKSIZE 50
 
+#define RESIGN 0.2
+
 typedef int Action;//for clarity
 
 using namespace std;
@@ -33,13 +36,13 @@ using namespace std;
 class MCTS
 {
 public:
-  Action best_action(board b, bool color, time_t time_limit = DEFAUT_TIME_PER_STEP);
-  double calc_winrate(board b, bool color);
-  void init_with_board(board b); //init MCTS with board
-  void reset(); //reset board and path before each cycle
+  Action best_action(board &init_b, bool color, int simu_per_step = DEFAUT_SIMS);
+  double calc_winrate();
+  void init_with_board(board &b); //init MCTS with board
+  void reset(board &b); //reset board and path before each cycle
   void clear(); //clear MCTS by delete root
 
-  Node* select(Node* r);
+  Node* select();
   bool roll_out();
   void backpropogation(bool res);
 

@@ -13,12 +13,16 @@
 #include<random> //new random lib c++14
 #include<math.h>
 #include <ctime>
+#include<iomanip>
+
 #define BLACK 0
 #define WHITE 1
 
 #define BOARDSZ 9
 #define BOARDVL 81
-#define BASENUM 10
+#define BASENUM 0
+#define RBASENUM 10
+//haha's base rave=10, nonrave=0, logc=1
 
 #define USERAVEQ
 #define RAVEK 1000
@@ -40,6 +44,7 @@ public:
   Node* parent; //its parent
   bool color; //last color
   Action pos; // last polay pos
+  Node* mvc; // the index of most visited child, -1 = no children
   double num, cnt; //value;
   double log_cnt;
   double rnum, rcnt; //rave value, like after-Action Q-value IMO
@@ -52,7 +57,9 @@ public:
   void update(bool result);
   void rave_update(bool result);
   Node* best_child();
+  vector<double> getPi();
   inline double getQ();
+  double show_stats();
 
 private:
 };

@@ -1,28 +1,33 @@
 #include "mcts.h"
 
 //#define DEBUG
+#define SHOW
 
-void MCTS::init_with_board(board b)
+void MCTS::init_with_board(board &b)
 {
   root = new Node;
-  root_board = b; //copy a board
-  root->initNode(NULL, root_board.just_play_color(), BOARDSZ);
+  //root_board = b; //copy a board from main
+  root->initNode(nullptr, BOARDVL, b.just_play_color());//2019.10.10.17:09....
+  root->show_stats();
   //use NULL, BOARDSZ, 0, 0 for last action doesnt matter
-  root->expand(root_board);
+  root->expand(b);
+  //root->show_stats();
   total = 0;
 }
 
-void MCTS::reset()
+void MCTS::reset(board& b)
 {
-  simu_board = root_board; //reset select simulation board(bpath, wpath will be rested)
+  simu_board = b; //reset select simulation board(bpath, wpath will be rested)
   path.clear(); //clear select path
   rave_path[0].clear();
   rave_path[1].clear();
+  simu_board.bpsize = 0;
+  simu_board.wpsize = 0;
 }
 
-Node* MCTS::select(Node* r)
+Node* MCTS::select()
 {
-  Node* cur = r;
+  Node* cur = root;
   path.push_back(cur);
   while(cur->cptr.size()) //if cptr.size() = 0, not expanded or game over
   {
@@ -46,8 +51,8 @@ bool MCTS::roll_out() //the one in the board
   for(int i = 0; i < simu_board.bpsize; i++)
     rave_path[0].push_back(simu_board.bpath[i]);
   for(int i = 0; i < simu_board.wpsize; i++)
-    rave_path[0].push_back(simu_board.wpath[i]);
-  return (res == -1);
+    rave_path[1].push_back(simu_board.wpath[i]); //wtf this bug//bugged until 2019/10/0 18:22
+  return res; //modified so that result is winner
 }
 
 void MCTS::backpropogation(bool res)
@@ -61,7 +66,7 @@ void MCTS::backpropogation(bool res)
     //if there is action A in the subtree from the afterstate S(color, pos) now
     //then Q(S(now),A) should be updated
     bool c = !path[t]->color;//the cur color to play(= children's color)
-    for(int tp = t/2; tp < rave_path[c].size(); tp++) //tp=t/2=>subtree, tp=0=>all
+    for(int tp = 0; tp < rave_path[c].size(); tp++) //tp=t/2=>subtree, tp=0=>all
     {
       int k = path[t]->idx[rave_path[c][tp]];
       if(k != -1) path[t]->cptr[k]->rave_update(res);
@@ -69,61 +74,69 @@ void MCTS::backpropogation(bool res)
 	}
 }
 
-int MCTS::best_action(board init_b, bool color, time_t time_limit) //gen random playable move
+int MCTS::best_action(board &init_b, bool color, int simu_per_step)
 {
-  init_with_board(init_b);
+  init_with_board(init_b); //create and expand root(null, basenum, p, c)
   time_t start_t, cur_t;
   start_t = clock();
-  cur_t = clock();
 
-#ifdef USETIME
-  while(start_t + time_limit > cur_t)//while time available
-  {
-    for(int block_i = 0; block_i < BLOCKSIZE; block_i++) //do blocksz cycles
-    {
-#endif
 #ifdef USEROUNDS
-  for(int ep = 0; ep < DEFAUT_SIMS; ep++){
+  for(int ep = 0; ep < simu_per_step; ep++){
 #endif
-      reset();
+      //reset path, board
+      reset(init_b);
       //selection
-      Node* selected_root = select(root);
+      Node* selected_root = select();
       //expansion
-      bool res;
-      int nc = selected_root->expand(simu_board);
-      if(nc == 0)
+      //expand when the is chosen once before, i.e. the second time
+      //let rave value do the job at opening
+      bool res, nc;
+      if(selected_root->cnt == BASENUM+1)
       {
-        res = simu_board.just_play_color();
+        int nc = selected_root->expand(simu_board);
+        //if there are children, one step look ahead
+        if(nc != 0)
+        {
+          selected_root = selected_root->best_child();
+          simu_board.add(selected_root->pos, selected_root->color);
+          rave_path[selected_root->color].push_back(selected_root->pos);
+          path.push_back(selected_root);
+        }
       }
-      else{
-        //one step look ahead, will choose unexplored fist for INFQ
-        Node* cur = selected_root->best_child();
-        simu_board.add(cur->pos, cur->color);
-        rave_path[cur->color].push_back(cur->pos);
-        path.push_back(cur);
-        //simulation, with the intuition of two-go position is better
-        res = roll_out();
-      }
+      //simulation, with the intuition of two-go position is better
+      res = roll_out();
       //backpropogation
       backpropogation(res);
-#ifdef USETIME
-    }
-    cur_t = clock();
-#endif
   }
   //return result, forget to judge NULL at first
-  Node *best_node = root->best_child();
-  Action maxA = (best_node == NULL) ? -1 : best_node->pos;
-#ifdef USETIME
-  assert(cur_t < start_t + time_limit + time_limit); //for no inf loop;
+  //best policy is of highest rave_winrate(in opening) and highest winrate(in ending)
+  vector<double> pi = root->getPi();
+  Action maxA = (root->mvc == nullptr) ? -1 : root->mvc->pos;
+#ifdef SHOW
+  cerr << endl;
+  cur_t = clock();
+  cerr << "simulations/sec : " << double(DEFAUT_SIMS)*CLOCKS_PER_SEC/double(cur_t-start_t) << endl;
+  //cerr << "winrate(root_num/root/cnt) : " <<  <<endl;
+  cerr << "show policy of the board:" << endl;
+  for(int ci = 0; ci < BOARDSZ; ci ++ )
+  {
+    for(int ri = 0; ri < BOARDSZ; ri ++ )
+    {
+      cerr << setw(3) << pi[ci*BOARDSZ+ri] << ' ';
+    }
+    cerr << endl;
+  }
 #endif
+  //if(calc_winrate() < RESIGN) maxA = -1;
+  root->show_stats();
   clear();
   return maxA;
 }
 
-double MCTS::calc_winrate(board b, bool color)
+double MCTS::calc_winrate()
 {
-  return 0.5;
+  //cerr << "HI" << endl;
+  return root->show_stats();
 }
 
 void MCTS::clear()

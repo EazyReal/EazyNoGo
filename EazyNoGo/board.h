@@ -65,7 +65,7 @@ public:
     void setdata();
     void clear();
     string inttostring(int i);
-    double simulate(bool j,int bone[BOARDSSIZE],int wone[BOARDSSIZE],int two[BOARDSSIZE] ,int bsize,int wsize ,int tsize );
+    bool simulate(bool j,int bone[BOARDSSIZE],int wone[BOARDSSIZE],int two[BOARDSSIZE] ,int bsize,int wsize ,int tsize );
     bool isempty();
 	inline void addbp(int k)
 	{
