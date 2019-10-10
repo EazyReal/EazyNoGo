@@ -4,7 +4,7 @@ practice MCTS(+RAVE) implementation with nogo
 using GoGUI, GTP2 protocol, and board of HaHaNoGo
 
 structure:
-/EazyNoGo is for eazynogo program(board part = hahanogo)
+/EazyNoGo is for eazynogo program(board part = hahanogo) \n
 /HaHaNoGo is cloned hahanogo program
 /Results is for saving games (.sgf and .dat)
 /Instructions is for reading
