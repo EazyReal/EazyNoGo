@@ -1,0 +1,16 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[9]
+KM[6.5]PB[EazyNoGo(MCTS+UCB+RAVE)]PW[haha25_rn20_bn0]DT[2019-10-11]RE[B+R]
+C[Black command: EazyNoGo/eznogo 500000
+White command: HaHaNoGo/hahanogo 500000
+Black version: 6.2
+White version: 
+Result[Black\]: B+R
+Result[White\]: B+R
+Host: ec037-010 (Intel(R) Core(TM) i7 CPU         870  @ 2.93GHz)
+Date: October 11, 2019 2:18:32 PM UTC]
+;B[aa];W[ia];B[ii];W[hb];B[ha];W[gb];B[ic];W[fa];B[ea];W[ca]
+;B[ai];W[ag];B[hh];W[ih];B[gi];W[fi];B[hg];W[ig];B[ie];W[hf]
+;B[gg];W[gh];B[fg];W[eh];B[ei];W[dh];B[hd];W[ci];B[af];W[fc]
+;B[fb];W[ge];B[ch];W[hc];B[gd];W[db];B[ad];W[be];B[cb];W[ff]
+;B[dg];W[bg];B[ef];W[ac];B[ce];W[ed];B[cf];W[df];B[he];W[dd]
+;B[dc];W[cd];B[bc];W[bh];B[ah];W[gc];B[bb])
