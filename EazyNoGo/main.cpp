@@ -15,10 +15,9 @@
 #include "mcts.h"
 
 #define NAME "EazyNoGo(MCTS+UCB+RAVE)"
-#define VERSION "6.2" //0=beta
-//6.2 not #show, program name = eznogo
+#define VERSION "7.0" //0=beta
+//7.0 not show, resign
 
-//#define BOARDSZ 9
 #define BOARDVL 81
 #define BLACK 0
 #define WHITE 1
