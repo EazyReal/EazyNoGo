@@ -15,7 +15,7 @@ inline double Node::getQ()
 {
   //4.0 up no INFQ
 //  if(cnt == BASENUM) return INFQ
-  assert(parent != nullptr);
+  //assert(parent != nullptr);
 #ifndef USERAVEQ
   return (num/cnt)+UCB_C*sqrt(parent->log_cnt/cnt);
 #endif
@@ -73,7 +73,7 @@ void Node::update(bool result)
 {
   if(result == color) num++;
   cnt++;
-  assert(cnt != 0);
+  //assert(cnt != 0);
   log_cnt = log(cnt);
 }
 

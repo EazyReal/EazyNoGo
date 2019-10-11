@@ -8,7 +8,7 @@
 #include <cassert>
 #include<iomanip>
 
-#define DEBUG
+//#define DEBUG
 
 //lib of algorithms for game
 #include "board.h"

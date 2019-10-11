@@ -14,6 +14,7 @@
 #include<math.h>
 #include <ctime>
 #include<iomanip>
+#include<cassert>
 
 #define BLACK 0
 #define WHITE 1
