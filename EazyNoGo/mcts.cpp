@@ -1,14 +1,14 @@
 #include "mcts.h"
 
 //#define DEBUG
-#define SHOW
+//#define SHOW
 
 void MCTS::init_with_board(board &b)
 {
   root = new Node;
   //root_board = b; //copy a board from main
   root->initNode(nullptr, BOARDVL, b.just_play_color());//2019.10.10.17:09....
-  root->show_stats();
+  //root->show_stats();
   //use NULL, BOARDSZ, 0, 0 for last action doesnt matter
   root->expand(b);
   //root->show_stats();
@@ -95,6 +95,7 @@ int MCTS::best_action(board &init_b, bool color, int simu_per_step)
       {
         int nc = selected_root->expand(simu_board);
         //if there are children, one step look ahead
+        //just expand => ravevalue as heuristic
         if(nc != 0)
         {
           selected_root = selected_root->best_child();

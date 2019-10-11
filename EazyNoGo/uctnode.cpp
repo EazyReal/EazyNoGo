@@ -24,6 +24,7 @@ inline double Node::getQ()
   return (num+rnum+UCB_C*sqrt(parent->log_cnt*cnt))/(rcnt+cnt);
 }
 
+//
 //ver 4.0 up => for tuning
 //will update most_visited_child as well
 vector<double> Node::getPi()
@@ -36,6 +37,8 @@ vector<double> Node::getPi()
   {
     sum += cptr[i]->cnt;
     if(cptr[i]->cnt > maxv) {maxv = cptr[i]->cnt; mvc = cptr[i];}
+    //7.0 try num instead of cnt(wincount first)
+    //if(cptr[i]->num > maxv) {maxv = cptr[i]->num; mvc = cptr[i];}
   }
 	for (int i = 0; i < cptr.size(); i++) pi[cptr[i]->pos] = cptr[i]->cnt / sum;
 	return pi;

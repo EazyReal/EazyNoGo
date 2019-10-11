@@ -22,5 +22,8 @@ cd Results/
 mkdir ${black}-haha${whitenum}
 cd ..
 
+#gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/eznogo61 1000000" -white "HaHaNoGo/hahanogo 1000000" -size 9 -auto -games 10 -sgffile Results/ez100w-haha100w/games
+
+
 gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/${black}" -white "HaHaNoGo/hahanogo ${whitenum}" -size 9 -auto -games ${gamenum} -sgffile Results/${black}-haha${whitenum}/games-bvw
 gogui-1.4.9/bin/gogui-twogtp -white "EazyNoGo/${black}" -black "HaHaNoGo/hahanogo ${whitenum}" -size 9 -auto -games ${gamenum} -sgffile Results/${black}-haha${whitenum}/games-wvb
