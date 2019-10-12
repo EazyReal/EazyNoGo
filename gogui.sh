@@ -13,7 +13,7 @@ read -p "input number of games to simulate: " gamenum
 read -p "input saving diectory name(/Results/name/)" res
 
 cd Results/
-mkdir res
+mkdir ${res}
 cd ..
 
 #gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/eznogo61 1000000" -white "HaHaNoGo/hahanogo 1000000" -size 9 -auto -games 10 -sgffile Results/ez100w-haha100w/games
