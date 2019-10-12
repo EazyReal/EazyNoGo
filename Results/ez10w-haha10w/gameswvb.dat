@@ -1,0 +1,46 @@
+# Black: haha25_rn20_bn0
+# BlackCommand: HaHaNoGo/hahanogo 100000
+# BlackLabel: haha25_rn20_bn0
+# BlackVersion: 
+# Date: October 12, 2019 6:22:22 AM UTC
+# Host: ec037-010 (Intel(R) Core(TM) i7 CPU         870  @ 2.93GHz)
+# Komi: 6.5
+# Referee: -
+# Size: 9
+# White: EazyNoGo(MCTS+UCB+RAVE)
+# WhiteCommand: EazyNoGo/eznogo 100000
+# WhiteLabel: EazyNoGo(MCTS+UCB+RAVE)
+# WhiteVersion: 7.0
+# Xml: 0
+#
+#GAME	RES_B	RES_W	RES_R	ALT	DUP	LEN	TIME_B	TIME_W	CPU_B	CPU_W	ERR	ERR_MSG
+0	W+R	W+R	W+R	0	-	58	41.8	46.1	0	0	0	
+1	B+R	B+R	B+R	0	-	55	40.9	45	0	0	0	
+2	B+R	B+R	B+R	0	-	57	41.2	45.6	0	0	0	
+3	B+R	B+R	B+R	0	-	55	59.1	88.9	0	0	0	
+4	W+R	W+R	W+R	0	-	58	67.7	103.2	0	0	0	
+5	B+R	B+R	B+R	0	-	57	42.7	47.1	0	0	0	
+6	W+R	W+R	W+R	0	-	58	42	45.9	0	0	0	
+7	B+R	B+R	B+R	0	-	55	41.6	45.5	0	0	0	
+8	W+R	W+R	W+R	0	-	60	42.7	46	0	0	0	
+9	W+R	W+R	W+R	0	-	58	42.2	46.2	0	0	0	
+10	B+R	B+R	B+R	0	-	61	42.7	47	0	0	0	
+11	B+R	B+R	B+R	0	-	55	41.8	46.4	0	0	0	
+12	B+R	B+R	B+R	0	-	53	40.8	45	0	0	0	
+13	B+R	B+R	B+R	0	-	57	41.8	46.5	0	0	0	
+14	B+R	B+R	B+R	0	-	57	42.6	47.3	0	0	0	
+15	B+R	B+R	B+R	0	-	55	40.3	44.8	0	0	0	
+16	W+R	W+R	W+R	0	-	58	41.1	45.3	0	0	0	
+17	W+R	W+R	W+R	0	-	58	42.6	47.1	0	0	0	
+18	W+R	W+R	W+R	0	-	60	57.6	119.5	0	0	0	
+19	B+R	B+R	B+R	0	-	57	151.4	100.2	0	0	0	
+20	B+R	B+R	B+R	0	-	57	41	45.4	0	0	0	
+21	W+R	W+R	W+R	0	-	58	40.9	45	0	0	0	
+22	B+R	B+R	B+R	0	-	57	40.9	45.5	0	0	0	
+23	W+R	W+R	W+R	0	-	56	41.8	45.5	0	0	0	
+24	B+R	B+R	B+R	0	-	57	41	45.4	0	0	0	
+25	W+R	W+R	W+R	0	-	60	41.6	45.8	0	0	0	
+26	B+R	B+R	B+R	0	-	57	41.2	45.9	0	0	0	
+27	W+R	W+R	W+R	0	-	52	39.7	43.8	0	0	0	
+28	B+R	B+R	B+R	0	-	57	40.7	45.8	0	0	0	
+29	B+R	B+R	B+R	0	-	57	40.6	44.9	0	0	0	
