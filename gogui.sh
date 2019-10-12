@@ -10,7 +10,7 @@
 read -p "input program 1 command: " p1
 read -p "input program 2 command: " p2
 read -p "input number of games to simulate: " gamenum
-read -p "input saving diectory name(/Results/name/)" res
+read -p "input saving diectory name(/Results/name/) : " res
 
 cd Results/
 mkdir ${res}
