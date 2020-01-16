@@ -16,8 +16,10 @@ gogui-twogtp -black "python3 xxx.py xxx xxx" -white "./hahanogo xxx" -size 9 -au
 
 @EazyNoGo/
 gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/eazynogo" -white "HaHaNoGo/hahanogo" -size 9 -auto -games 1 -sgffile Results/results
-test.sh can be use to compile and test quickly
-2020/1/16 update DEFAUT_SIMS hyper param is in mcts.h 
+test.sh can be use to compile and test against hahanogo quickly
+gogui.sh for more general testing between two execution file
+
+
 
 
 reference:

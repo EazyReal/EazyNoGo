@@ -1,0 +1,18 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[9]
+KM[6.5]PB[EazyNoGo(MCTS+UCB+RAVE):7.0]PW[EazyNoGo(MCTS+UCB+RAVE):7.0]
+DT[2020-01-16]RE[B+R]
+C[Black command: ./EazyNoGo/eznogo-expandBASE+1
+White command: ./EazyNoGo/eznogo-expandBase
+Black version: 7.0
+White version: 7.0
+Result[Black\]: B+R
+Result[White\]: B+R
+Host: linyantongs-MBP
+Date: January 16, 2020 at 10:07:12 PM CST]
+;B[ai];W[ia];B[ii];W[aa];B[if];W[bb];B[ab];W[bc];B[ca];W[ad]
+;B[ae];W[ic];B[hb];W[ie];B[ag];W[bh];B[id];W[bf];B[hc];W[ib]
+;B[ga];W[gb];B[ea];W[cd];B[bd];W[fa];B[db];W[eb];B[ec];W[gd]
+;B[fc];W[dc];B[cb];W[di];B[gi];W[fi];B[eh];W[ch];B[hh];W[bi]
+;B[af];W[ih];B[hg];W[de];B[dd];W[gc];B[ge];W[bg];B[cg];W[dh]
+;B[gg];W[fd];B[cf];W[ff];B[ei];W[ce];B[eg];W[dg];B[ef];W[fg]
+;B[hf];W[fh];B[ee];W[gf];B[fe])

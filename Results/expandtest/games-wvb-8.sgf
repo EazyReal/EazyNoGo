@@ -1,0 +1,18 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[9]
+KM[6.5]PB[EazyNoGo(MCTS+UCB+RAVE):7.0]PW[EazyNoGo(MCTS+UCB+RAVE):7.0]
+DT[2020-01-16]RE[B+R]
+C[Black command: ./EazyNoGo/eznogo-expandBASE+1
+White command: ./EazyNoGo/eznogo-expandBase
+Black version: 7.0
+White version: 7.0
+Result[Black\]: B+R
+Result[White\]: B+R
+Host: linyantongs-MacBook-Pro.local
+Date: January 16, 2020 at 10:22:40 PM CST]
+;B[ai];W[aa];B[ii];W[fi];B[ia];W[di];B[ei];W[bb];B[ba];W[cb]
+;B[ac];W[da];B[ea];W[gh];B[hb];W[ga];B[ic];W[hc];B[gb];W[hi]
+;B[fa];W[ig];B[hh];W[fh];B[gg];W[ch];B[bi];W[ff];B[fg];W[hf]
+;B[if];W[dc];B[id];W[cd];B[eh];W[bc];B[db];W[fb];B[he];W[cf]
+;B[de];W[be];B[ad];W[bg];B[cg];W[af];B[ah];W[fd];B[fc];W[ge]
+;B[ed];W[ef];B[fe];W[ec];B[ae];W[ce];B[ag];W[dd];B[df];W[bd]
+;B[bh])

@@ -91,7 +91,7 @@ int MCTS::best_action(board& init_b, bool color, int simu_per_step)
         //expand when the is chosen once before, i.e. the second time
         //let rave value do the job at opening
         bool res, nc;
-        if (selected_root->cnt == BASENUM + 1) {
+        if (selected_root->cnt == BASENUM+1) { //testing, 2020.1.16 is better(20 game exp)
             int nc = selected_root->expand(simu_board);
             //if there are children, one step look ahead
             //just expand => ravevalue as heuristic
@@ -119,10 +119,17 @@ int MCTS::best_action(board& init_b, bool color, int simu_per_step)
     cur_t = clock();
     cerr << "simulations/sec : " << double(DEFAUT_SIMS) * CLOCKS_PER_SEC / double(cur_t - start_t) << endl;
     //cerr << "winrate(root_num/root/cnt) : " <<  <<endl;
-    cerr << "show policy of the board:" << endl;
+    cerr << "show policy of the board:(double)" << endl;
     for (int ci = 0; ci < BOARDSZ; ci++) {
         for (int ri = 0; ri < BOARDSZ; ri++) {
-            cerr << setw(3) << pi[ci * BOARDSZ + ri] << ' ';
+            cerr << setw(3) << std::setprecision(3) << std::fixed << pi[ci * BOARDSZ + ri] << ' ';
+        }
+        cerr << endl;
+    }
+    cerr << "show policy of the board(int):" << endl;
+    for (int ci = 0; ci < BOARDSZ; ci++) {
+        for (int ri = 0; ri < BOARDSZ; ri++) {
+            cerr << setw(3) << std::fixed << int(pi[ci * BOARDSZ + ri]*simu_per_step) << ' ';
         }
         cerr << endl;
     }
@@ -141,5 +148,5 @@ double MCTS::calc_winrate()
 
 void MCTS::clear()
 {
-    delete root;
+    delete root; //recursively delete by def of ~node
 }
