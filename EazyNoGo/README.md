@@ -1,4 +1,4 @@
-hyper params
+#hyper params
 
 mcts:
 \#define USEROUNDS bool (use roud or time)
