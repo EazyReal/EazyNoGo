@@ -27,6 +27,7 @@
 
 #define USERAVEQ
 #define RAVEK 1000
+//when use RAVE, c should be small mentioned by paper surveyed
 #define UCB_C 0.25
 #define INFQ 1000.0
 

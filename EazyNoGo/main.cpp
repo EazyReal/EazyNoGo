@@ -15,7 +15,7 @@
 #include "mcts.h"
 
 #define NAME "EazyNoGo(MCTS+UCB+RAVE)"
-#define VERSION "7.0" //0=beta
+#define VERSION "7.0" 
 //7.0 not show, resign
 
 #define BOARDVL 81

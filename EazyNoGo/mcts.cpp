@@ -48,6 +48,7 @@ bool MCTS::roll_out() //the one in the board
     //res == 1 => black(0)player win
     int res = simu_board.simulate(c, bpos, wpos, bothpos, bpos_sz, wpos_sz, bothpos_sz);
     //update the simu actions to my rave_path vec
+    //tree sim part in board b/wpath
     for (int i = 0; i < simu_board.bpsize; i++)
         rave_path[0].push_back(simu_board.bpath[i]);
     for (int i = 0; i < simu_board.wpsize; i++)
@@ -65,7 +66,9 @@ void MCTS::backpropogation(bool res)
         //if there is action A in the subtree from the afterstate S(color, pos) now
         //then Q(S(now),A) should be updated
         bool c = !path[t]->color; //the cur color to play(= children's color)
-        for (int tp = 0; tp < rave_path[c].size(); tp++) //tp=t/2=>subtree, tp=0=>all
+        for (int tp = 0; tp < rave_path[c].size(); tp++)
+        //tp=t/2=>subtree, tp=0=>all, should not influence the result because actionsi staken
+        //2020/1/16 night, reading paper, get that this should influence
         {
             int k = path[t]->idx[rave_path[c][tp]];
             if (k != -1)

@@ -8,7 +8,7 @@ using GoGUI, GTP2 protocol, and board of HaHaNoGo
 
 structure:
 
-/EazyNoGo is for eazynogo program(board part = hahanogo) 
+/EazyNoGo is for eazynogo program(board part = hahanogo)
 
 /HaHaNoGo is cloned hahanogo program
 
@@ -33,6 +33,8 @@ gogui-1.4.9/bin/gogui-twogtp -black "EazyNoGo/eazynogo" -white "HaHaNoGo/hahanog
 
 test.sh can be use to compile and test quickly
 
+2020/01/17 after individual study report
+20:00 finish reading bo-shiuan's paper, feels more clear and confident about future works:)
 
 reference:
 
@@ -43,4 +45,3 @@ gogui download : http://gogui.sourceforge.net/
 gtp2 documentations : https://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2.pdf
 
 mcts-rave algorithm : http://www.cs.utexas.edu/~pstone/Courses/394Rspring13/resources/mcrave.pdf
-
