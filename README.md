@@ -1,6 +1,5 @@
 # EazyNoGo
 
-for goole recruiters
 see report.pptx for ppt presentation to professor
 
 practice MCTS(+RAVE) implementation with nogo
